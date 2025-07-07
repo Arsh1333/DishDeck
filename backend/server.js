@@ -7,6 +7,7 @@ let app = express();
 
 const port = process.env.PORT;
 
+app.use(express.json());
 app.use("/card", cardRouter);
 
 connectDb()
