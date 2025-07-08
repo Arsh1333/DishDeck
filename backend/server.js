@@ -1,4 +1,5 @@
 import express from "express";
+import cors from "cors";
 import "dotenv/config";
 import cardRouter from "./routes/Card.routes.js";
 import connectDb from "./db/connectDb.js";
@@ -8,6 +9,7 @@ let app = express();
 const port = process.env.PORT;
 
 app.use(express.json());
+app.use(cors({ origin: process.env.CORS_ORIGIN }));
 app.use("/card", cardRouter);
 
 connectDb()

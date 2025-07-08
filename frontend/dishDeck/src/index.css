@@ -1,3 +1,10 @@
 @import "tailwindcss";
 @plugin "flowbite-react/plugin/tailwindcss";
 @source "../.flowbite-react/class-list.json";
+
+@theme {
+  --color-primary-brand: #4a90e2; /* Example custom blue */
+  --color-secondary-accent: #f5a623; /* Example custom orange */
+  --color-dark-text: #2d3748; /* Example custom dark gray */
+  --color-creamy-beige: #f2e9e4; /*creamy beige*/
+}
