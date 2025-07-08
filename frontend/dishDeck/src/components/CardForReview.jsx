@@ -13,7 +13,12 @@ import {
 function CardForReview() {
   const [data, setData] = useState([]);
   const [openModal, setOpenModal] = useState(false);
-  const [email, setEmail] = useState("");
+  const [food, setFood] = useState("");
+  const [review, setReview] = useState("");
+  const [location, setLocation] = useState("");
+  const [ratings, setRatings] = useState("");
+  const [restaurant, seteRestaurant] = useState("");
+
   const getReview = async () => {
     try {
       const review = await axios.get("http://localhost:5000/card/getCard");
@@ -29,12 +34,33 @@ function CardForReview() {
 
   function onCloseModal() {
     setOpenModal(false);
-    setEmail("");
+    setFood("");
+    setLocation("");
+    setReview("");
+    setRatings("");
+    seteRestaurant("");
   }
 
-  const addReview = () => {
-    console.log("Added");
+  const addReview = async () => {
+    try {
+      const newReview = await axios.post(
+        "http://localhost:5000/card/postCard",
+        {
+          food: food,
+          location: location,
+          review: review,
+          ratings: ratings,
+          restaurant: restaurant,
+        }
+      );
+      console.log(newReview);
+      await getReview();
+      setOpenModal(false);
+    } catch (error) {
+      console.log(error);
+    }
   };
+
   return (
     <div className="min-h-screen bg-gradient-to-b from-[#2C2A4A] to-[#FF7F3F] px-4 py-12">
       <h1 className="text-4xl sm:text-5xl font-bold text-[#F2E9E4] mb-10 text-center drop-shadow-lg">
@@ -57,10 +83,10 @@ function CardForReview() {
                 <Label>Food Item</Label>
               </div>
               <TextInput
-                id="email"
+                id="food"
                 placeholder="Enter food you ate"
-                value={email}
-                onChange={(event) => setEmail(event.target.value)}
+                value={food}
+                onChange={(event) => setFood(event.target.value)}
                 required
               />
             </div>
@@ -68,28 +94,51 @@ function CardForReview() {
               <div className="mb-2 block">
                 <Label htmlFor="password">Food Review</Label>
               </div>
-              <TextInput id="password" type="password" required />
+              <TextInput
+                id="password"
+                value={review}
+                onChange={(e) => setReview(e.target.value)}
+                placeholder="Enter Review"
+                required
+              />
             </div>
             <div>
               <div className="mb-2 block">
-                <Label htmlFor="password">Ratings /10 *</Label>
+                <Label>Ratings /5 *</Label>
               </div>
-              <TextInput id="password" type="password" required />
+              <TextInput
+                id="ratings"
+                value={ratings}
+                placeholder="Ratings out of 5"
+                onChange={(e) => setRatings(e.target.value)}
+                required
+              />
             </div>
             <div>
               <div className="mb-2 block">
-                <Label htmlFor="password">Location</Label>
+                <Label>Location</Label>
               </div>
-              <TextInput id="password" type="password" required />
+              <TextInput
+                id="location"
+                value={location}
+                onChange={(e) => setLocation(e.target.value)}
+                required
+              />
             </div>
             <div>
               <div className="mb-2 block">
-                <Label htmlFor="password">Restaurant</Label>
+                <Label>Restaurant</Label>
               </div>
-              <TextInput id="password" type="password" required />
+              <TextInput
+                id="restaurant"
+                placeholder="Restaurant you had this food at"
+                value={restaurant}
+                onChange={(e) => seteRestaurant(e.target.value)}
+                required
+              />
             </div>
             <div className="w-full">
-              <Button>Add your review</Button>
+              <Button onClick={addReview}>Add your review</Button>
             </div>
           </div>
         </ModalBody>
