@@ -22,38 +22,35 @@ function CardForReview() {
   const getReview = async () => {
     try {
       const review = await axios.get("http://localhost:5000/card/getCard");
-      console.log(review);
       setData(review.data);
+      console.log(review.data);
     } catch (error) {
       console.log(error);
     }
   };
+
   useEffect(() => {
     getReview();
   }, []);
 
-  function onCloseModal() {
+  const onCloseModal = () => {
     setOpenModal(false);
     setFood("");
     setLocation("");
     setReview("");
     setRatings("");
     seteRestaurant("");
-  }
+  };
 
   const addReview = async () => {
     try {
-      const newReview = await axios.post(
-        "http://localhost:5000/card/postCard",
-        {
-          food: food,
-          location: location,
-          review: review,
-          ratings: ratings,
-          restaurant: restaurant,
-        }
-      );
-      console.log(newReview);
+      await axios.post("http://localhost:5000/card/postCard", {
+        food,
+        location,
+        review,
+        ratings,
+        restaurant,
+      });
       await getReview();
       setOpenModal(false);
     } catch (error) {
@@ -62,105 +59,82 @@ function CardForReview() {
   };
 
   return (
-    <div className="min-h-screen bg-gradient-to-b from-[#2C2A4A] to-[#FF7F3F] px-4 py-12">
-      <h1 className="text-4xl sm:text-5xl font-bold text-[#F2E9E4] mb-10 text-center drop-shadow-lg">
-        🍽️ DishDeck
+    <div className="min-h-screen bg-[#F2F2F7] px-6 py-10">
+      <h1 className="text-4xl font-semibold text-center text-[#333] mb-10">
+        🍽️ DishDeck – Share Your Taste
       </h1>
+
+      {/* Add Review Button */}
       <div className="flex justify-center mb-6">
-        <Button color="red" onClick={() => setOpenModal(true)}>
-          Add Review
+        <Button
+          onClick={() => setOpenModal(true)}
+          className="bg-[#0F4C81] text-white hover:bg-[#133d6b] px-6 py-2 rounded-md font-medium"
+        >
+          + Add Review
         </Button>
       </div>
+
+      {/* Modal */}
       <Modal show={openModal} size="md" onClose={onCloseModal} popup>
         <ModalHeader />
         <ModalBody>
-          <div className="space-y-6">
-            <h3 className="text-xl font-medium text-gray-900 dark:text-white">
-              Add review for the food you've had
+          <div className="space-y-5">
+            <h3 className="text-xl font-semibold text-[#4499e2]">
+              Add a Review
             </h3>
-            <div>
-              <div className="mb-2 block">
-                <Label>Food Item</Label>
+
+            {[
+              { label: "Food Item", value: food, set: setFood },
+              { label: "Food Review", value: review, set: setReview },
+              { label: "Rating (1–5)", value: ratings, set: setRatings },
+              { label: "Location", value: location, set: setLocation },
+              { label: "Restaurant", value: restaurant, set: seteRestaurant },
+            ].map(({ label, value, set }, idx) => (
+              <div key={idx}>
+                <Label>{label}</Label>
+                <TextInput
+                  value={value}
+                  onChange={(e) => set(e.target.value)}
+                  placeholder={`Enter ${label.toLowerCase()}`}
+                  required
+                />
               </div>
-              <TextInput
-                id="food"
-                placeholder="Enter food you ate"
-                value={food}
-                onChange={(event) => setFood(event.target.value)}
-                required
-              />
-            </div>
-            <div>
-              <div className="mb-2 block">
-                <Label htmlFor="password">Food Review</Label>
-              </div>
-              <TextInput
-                id="password"
-                value={review}
-                onChange={(e) => setReview(e.target.value)}
-                placeholder="Enter Review"
-                required
-              />
-            </div>
-            <div>
-              <div className="mb-2 block">
-                <Label>Ratings /5 *</Label>
-              </div>
-              <TextInput
-                id="ratings"
-                value={ratings}
-                placeholder="Ratings out of 5"
-                onChange={(e) => setRatings(e.target.value)}
-                required
-              />
-            </div>
-            <div>
-              <div className="mb-2 block">
-                <Label>Location</Label>
-              </div>
-              <TextInput
-                id="location"
-                value={location}
-                onChange={(e) => setLocation(e.target.value)}
-                required
-              />
-            </div>
-            <div>
-              <div className="mb-2 block">
-                <Label>Restaurant</Label>
-              </div>
-              <TextInput
-                id="restaurant"
-                placeholder="Restaurant you had this food at"
-                value={restaurant}
-                onChange={(e) => seteRestaurant(e.target.value)}
-                required
-              />
-            </div>
-            <div className="w-full">
-              <Button onClick={addReview}>Add your review</Button>
-            </div>
+            ))}
+
+            <Button
+              onClick={addReview}
+              className="w-full bg-[#FF7F3F] hover:bg-[#e46d2d] text-white font-semibold"
+            >
+              Submit Review
+            </Button>
           </div>
         </ModalBody>
       </Modal>
-      <div className="flex flex-wrap justify-center gap-8">
+
+      {/* Cards */}
+      <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 gap-8 mt-10">
         {data.map((i) => (
           <Card
             key={i._id}
-            className="w-full max-w-[320px] sm:max-w-[360px] bg-[#F2E9E4] text-[#2C2A4A] rounded-xl shadow-lg transition-transform hover:scale-[1.03] hover:shadow-2xl"
-            imgAlt="Delicious dish"
-            imgSrc="https://encrypted-tbn3.gstatic.com/images?q=tbn:ANd9GcQZwK3V_MwMUDz4c8zoAj25IkH-XbCNp1nXp26Sz15nJDX2kkdlMa1WDkPI4V_23IX6utgAFlaxMYrAXXOuxpFxCo3y6j1f1chlMbBOLoc"
+            className="!bg-[#d0dcf2] rounded-xl border border-gray-200 shadow-sm hover:shadow-md transition duration-200"
+            imgSrc="https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcQr11cR0tRSZyr17lRra7qPGMiRzqUlglQr2A&s"
+            imgAlt={i.food}
           >
-            <div className="p-5 space-y-3">
-              <h5 className="text-xl font-semibold">
-                <span className="text-[#00C2A8]">{i.ratings}/5</span>
-                <span className="text-[#FF7F3F] ml-4">{i.location}</span>
-              </h5>
+            <div className="p-4 space-y-2">
+              <h5 className="text-xl font-bold text-[#1a5990]">{i.food}</h5>
 
-              <p className="text-sm text-white leading-relaxed">{i.review}</p>
+              <p className="text-black text-sm">"{i.review}"</p>
 
-              <p className="text-[#A2A2A2] italic text-sm text-right">
-                Restaurant: {i.restaurant}
+              <div className="flex items-center justify-between text-sm text-gray-500">
+                <span>📍 {i.location}</span>
+                <span>⭐ {i.ratings}/5</span>
+              </div>
+
+              <p className="text-right text-xs italic text-gray-400 mt-2">
+                {i.restaurant}
+              </p>
+              <p className="text-gray-600">
+                {new Date(i.createdAt).toLocaleString()}
               </p>
             </div>
           </Card>

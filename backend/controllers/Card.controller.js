@@ -4,7 +4,7 @@ import { Card } from "../models/Card.models.js";
 const getCard = async (req, res) => {
   try {
     // res.send("Card from controllers");
-    const card = await Card.find();
+    const card = await Card.find().sort({ createdAt: -1 });
     res.status(201).json(card);
   } catch (error) {
     console.log(error);
