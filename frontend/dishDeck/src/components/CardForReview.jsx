@@ -192,7 +192,7 @@ function CardForReview() {
                     <span>⭐ {i.ratings}/5</span>
                   </div>
 
-                  <p className="text-right text-[10px] italic text-[#F5F5DC] truncate">
+                  <p className="text-right text-[14px] italic text-[#F5F5DC] truncate">
                     {i.restaurant}
                   </p>
 
