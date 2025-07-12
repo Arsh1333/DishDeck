@@ -10,7 +10,7 @@ import {
   TextInput,
 } from "flowbite-react";
 
-function CardForReview() {
+function CardForReview({ user }) {
   const [data, setData] = useState([]);
   const [openModal, setOpenModal] = useState(false);
   const [food, setFood] = useState("");
@@ -101,52 +101,67 @@ function CardForReview() {
             </option>
           ))}
         </select>
-        <div className="flex justify-center ml-2">
-          <Button
-            onClick={() => setOpenModal(true)}
-            className="!bg-[#E63946] text-white hover:!bg-[#f87575] px-6 py-2 rounded-md font-medium"
-          >
-            Add Review
-          </Button>
-        </div>
       </div>
-
-      <Modal show={openModal} size="md" onClose={onCloseModal} popup>
-        <ModalHeader className="bg-[#6B8E23] rounded-t-md text-white px-6 py-3">
-          <h2 className="text-lg font-semibold">🍽️ Add Your Food Review</h2>
-        </ModalHeader>
-        <ModalBody className="bg-[#F5F5DC] px-6 py-6 rounded-b-md">
-          <div className="space-y-5">
-            {[
-              { label: "Food Item", value: food, set: setFood },
-              { label: "Food Review", value: review, set: setReview },
-              { label: "Rating (1–5)", value: ratings, set: setRatings },
-              { label: "Location", value: location, set: setLocation },
-              { label: "Restaurant", value: restaurant, set: setRestaurant },
-            ].map(({ label, value, set }, idx) => (
-              <div key={idx}>
-                <label className="block text-sm font-medium text-[#333] mb-1">
-                  {label}
-                </label>
-                <input
-                  value={value}
-                  onChange={(e) => set(e.target.value)}
-                  placeholder={`Enter ${label.toLowerCase()}`}
-                  required
-                  className="w-full px-4 py-2 bg-white border border-[#6B8E23] rounded-md shadow-sm placeholder-gray-500 text-gray-800 focus:outline-none focus:ring-2 focus:ring-[#6B8E23]"
-                />
-              </div>
-            ))}
-
+      {user ? (
+        <>
+          <div className="flex justify-center ml-2">
             <Button
-              onClick={addReview}
-              className="w-full bg-[#FF7F3F] hover:bg-[#e76e2a] text-white font-semibold py-2 rounded-md transition duration-200"
+              onClick={() => setOpenModal(true)}
+              className="!bg-[#E63946] text-white hover:!bg-[#f87575] px-6 py-2 rounded-md font-medium"
             >
-              Submit Review
+              Add Review
             </Button>
           </div>
-        </ModalBody>
-      </Modal>
+          <Modal show={openModal} size="md" onClose={onCloseModal} popup>
+            <ModalHeader className="bg-[#6B8E23] rounded-t-md text-white px-6 py-3">
+              <h2 className="text-lg font-semibold">🍽️ Add Your Food Review</h2>
+            </ModalHeader>
+            <ModalBody className="bg-[#F5F5DC] px-6 py-6 rounded-b-md">
+              <div className="space-y-5">
+                {[
+                  { label: "Food Item", value: food, set: setFood },
+                  { label: "Food Review", value: review, set: setReview },
+                  { label: "Rating (1–5)", value: ratings, set: setRatings },
+                  { label: "Location", value: location, set: setLocation },
+                  {
+                    label: "Restaurant",
+                    value: restaurant,
+                    set: setRestaurant,
+                  },
+                ].map(({ label, value, set }, idx) => (
+                  <div key={idx}>
+                    <label className="block text-sm font-medium text-[#333] mb-1">
+                      {label}
+                    </label>
+                    <input
+                      value={value}
+                      onChange={(e) => set(e.target.value)}
+                      placeholder={`Enter ${label.toLowerCase()}`}
+                      required
+                      className="w-full px-4 py-2 bg-white border border-[#6B8E23] rounded-md shadow-sm placeholder-gray-500 text-gray-800 focus:outline-none focus:ring-2 focus:ring-[#6B8E23]"
+                    />
+                  </div>
+                ))}
+
+                <Button
+                  onClick={addReview}
+                  className="w-full bg-[#FF7F3F] hover:bg-[#e76e2a] text-white font-semibold py-2 rounded-md transition duration-200"
+                >
+                  Submit Review
+                </Button>
+              </div>
+            </ModalBody>
+          </Modal>
+        </>
+      ) : (
+        <div className="text-center text-gray-500 mb-6">
+          Please{" "}
+          <a href="/auth" className="text-[#6B8E23] underline">
+            log in
+          </a>{" "}
+          to add a review.
+        </div>
+      )}
 
       <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-6 mt-10">
         {(() => {
