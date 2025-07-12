@@ -1,6 +1,6 @@
 import { useEffect, useState } from "react";
 import axios from "axios";
-import { Card } from "flowbite-react";
+import { Card, Button } from "flowbite-react";
 
 const UserProfile = ({ user }) => {
   const [myReviews, setMyReviews] = useState([]);
@@ -23,6 +23,16 @@ const UserProfile = ({ user }) => {
       fetchUserReview();
     }
   }, [user]);
+
+  const deleteReview = async (id) => {
+    try {
+      await axios.delete(`http://localhost:5000/card/deleteCard/${id}`);
+      setMyReviews(myReviews.filter((review) => review._id !== id));
+    } catch (error) {
+      console.error("Failed to delete review", error);
+    }
+  };
+
   return (
     <div className="min-h-screen px-6 py-10 bg-[#F9F9F6]">
       <h1 className="text-3xl font-bold mb-6 text-[#6B8E23] text-center">
@@ -54,6 +64,12 @@ const UserProfile = ({ user }) => {
                   🕒 {new Date(i.createdAt).toLocaleString()}
                 </p>
               </div>
+              <Button
+                onClick={() => deleteReview(i._id)}
+                className="mt-2 text-sm text-red-600 hover:underline"
+              >
+                Delete
+              </Button>
             </Card>
           ))}
         </div>
