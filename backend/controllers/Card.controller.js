@@ -13,8 +13,15 @@ const getCard = async (req, res) => {
 
 const addCard = async (req, res) => {
   try {
-    const { food, ratings, review, location, restaurant } = req.body;
-    const newCard = await Card({ food, ratings, review, location, restaurant });
+    const { food, ratings, review, location, restaurant, user } = req.body;
+    const newCard = await Card({
+      food,
+      ratings,
+      review,
+      location,
+      restaurant,
+      user,
+    });
     newCard.save();
     console.log("New Card Added");
     res.status(201).json(newCard);

@@ -53,6 +53,10 @@ function CardForReview({ user }) {
         review,
         ratings,
         restaurant,
+        user: {
+          uid: user.uid,
+          name: user.displayName,
+        },
       });
       await getReview();
       setOpenModal(false);
@@ -214,12 +218,15 @@ function CardForReview({ user }) {
                   <p className="text-[10px] text-[#F5F5DC]">
                     🕒 {new Date(i.createdAt).toLocaleString()}
                   </p>
+                  <p className="text-[12px] text-[#333] italic">
+                    👤 Reviewed by {i.user?.name || "Anonymous"}
+                  </p>
                 </div>
               </Card>
             ))
           ) : (
             <p className="col-span-full text-center text-gray-600 text-sm mt-10">
-              ❌ No results found for your search.
+              ❌ No results found for your search.(404)
             </p>
           );
         })()}
