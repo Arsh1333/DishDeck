@@ -29,6 +29,11 @@ const Auth = function ({ user, onLogin }) {
           <span className="text-sm text-[#6B8E23] font-semibold">
             Welcome, {user.displayName}
           </span>
+
+          <a href="/profile" className="text-[#6B8E23] ml-4 underline">
+            My Profile
+          </a>
+
           <button onClick={logout} className="text-red-600 font-semibold">
             Logout
           </button>

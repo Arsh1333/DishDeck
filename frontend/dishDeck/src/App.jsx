@@ -2,6 +2,7 @@ import { useState } from "react";
 import { BrowserRouter as Router, Route, Routes } from "react-router-dom";
 import "./App.css";
 import CardForReview from "./components/CardForReview.jsx";
+import UserProfile from "./components/UserProfile.jsx";
 import Auth from "./components/Auth.jsx";
 
 function App() {
@@ -30,6 +31,7 @@ function App() {
             </div>
           }
         />
+        <Route path="/profile" element={<UserProfile user={user} />} />
       </Routes>
     </Router>
   );
