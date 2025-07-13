@@ -21,6 +21,7 @@ function CardForReview({ user }) {
   const [searchQuery, setSearchQuery] = useState("");
   const [selectedLocation, setSelectedLocation] = useState("");
   const [selectedFood, setSelectedFood] = useState("");
+  const [imageFile, setImageFile] = useState(null);
 
   const getReview = async () => {
     try {
@@ -46,8 +47,17 @@ function CardForReview({ user }) {
   };
 
   const addReview = async () => {
+    let imageUrl = "";
+    let public_id = "";
+
+    if (imageFile) {
+      const uploaded = await uploadImageToCloudinary(imageFile);
+      imageUrl = uploaded.imageUrl;
+      public_id = uploaded.public_id;
+    }
+
     try {
-      await axios.post("http://localhost:5000/card/postCard", {
+      const res = await axios.post("http://localhost:5000/card/postCard", {
         food,
         location,
         review,
@@ -57,14 +67,47 @@ function CardForReview({ user }) {
           uid: user.uid,
           name: user.displayName,
         },
+        image: imageUrl,
+        public_id,
       });
-      await getReview();
+      // await getReview();
+      if (res.status === 200 || res.status === 201) {
+        // Review added successfully, now fetch updated list
+        await getReview();
+      } else {
+        console.error("Failed to save review.");
+      }
       setOpenModal(false);
     } catch (error) {
       console.log(error);
     }
   };
 
+  const uploadImageToCloudinary = async (file) => {
+    const cloudName = import.meta.env.VITE_CLOUDINARY_CLOUD_NAME;
+    const uploadPreset = import.meta.env.VITE_CLOUDINARY_UPLOAD_PRESET;
+    const formData = new FormData();
+    formData.append("file", file);
+    formData.append("upload_preset", uploadPreset);
+    try {
+      const res = await fetch(
+        `https://api.cloudinary.com/v1_1/${cloudName}/image/upload`,
+        {
+          method: "POST",
+          body: formData,
+        }
+      );
+      const data = await res.json();
+      return {
+        imageUrl: data.secure_url,
+        public_id: data.public_id, // Save this
+      };
+      return data.secure_url;
+    } catch (err) {
+      console.error("Upload failed:", err);
+      return "";
+    }
+  };
   return (
     <div className="min-h-screen bg-[#F9F9F6] px-6 py-10">
       <h1 className="text-4xl font-bold text-center text-[#6B8E23] mb-8 tracking-wide">
@@ -118,7 +161,9 @@ function CardForReview({ user }) {
           </div>
           <Modal show={openModal} size="md" onClose={onCloseModal} popup>
             <ModalHeader className="bg-[#6B8E23] rounded-t-md text-white px-6 py-3">
-              <h2 className="text-lg font-semibold">🍽️ Add Your Food Review</h2>
+              <span className="text-lg font-semibold">
+                🍽️ Add Your Food Review
+              </span>
             </ModalHeader>
             <ModalBody className="bg-[#F5F5DC] px-6 py-6 rounded-b-md">
               <div className="space-y-5">
@@ -146,7 +191,17 @@ function CardForReview({ user }) {
                     />
                   </div>
                 ))}
-
+                <div>
+                  <label className="block text-sm font-medium text-[#333] mb-1">
+                    Upload Image (Optional)
+                  </label>
+                  <input
+                    type="file"
+                    accept="image/*"
+                    onChange={(e) => setImageFile(e.target.files[0])}
+                    className="w-full px-4 py-2 bg-white border border-[#6B8E23] rounded-md shadow-sm"
+                  />
+                </div>
                 <Button
                   onClick={addReview}
                   className="w-full bg-[#FF7F3F] hover:bg-[#e76e2a] text-white font-semibold py-2 rounded-md transition duration-200"
@@ -191,10 +246,13 @@ function CardForReview({ user }) {
               <Card
                 key={i._id}
                 className="!bg-[#A3BE8C] border border-[#e6e6e6] rounded-xl 
-        shadow-[0_4px_12px_#33333360] 
-        hover:shadow-[0_8px_24px_#333333cc] 
-        transition-shadow duration-300 ease-in-out"
-                imgSrc="https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcQr11cR0tRSZyr17lRra7qPGMiRzqUlglQr2A&s"
+    shadow-[0_4px_12px_#33333360] 
+    hover:shadow-[0_8px_24px_#333333cc] 
+    transition-shadow duration-300 ease-in-out"
+                imgSrc={
+                  i.image ||
+                  "https://dummyimage.com/300x200/cccccc/000000&text=No+Image"
+                }
                 imgAlt={i.food}
               >
                 <div className="p-3 space-y-1">

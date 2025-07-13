@@ -45,25 +45,41 @@ const UserProfile = ({ user }) => {
             <Card
               key={i._id}
               className="!bg-[#A3BE8C] border border-[#e6e6e6] rounded-xl 
-              shadow-[0_4px_12px_#33333360] 
-              hover:shadow-[0_8px_24px_#333333cc] 
-              transition-shadow duration-300 ease-in-out"
-              imgSrc="https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcQr11cR0tRSZyr17lRra7qPGMiRzqUlglQr2A&s"
+    shadow-[0_4px_12px_#33333360] 
+    hover:shadow-[0_8px_24px_#333333cc] 
+    transition-shadow duration-300 ease-in-out"
+              imgSrc={
+                i.image ||
+                "https://dummyimage.com/300x200/cccccc/000000&text=No+Image"
+              }
+              imgAlt={i.food}
             >
-              <div className="p-4 space-y-2">
-                <h5 className="text-xl font-bold text-[#333]">{i.food}</h5>
-                <p className="text-sm italic text-[#F5F5DC]">"{i.review}"</p>
-                <div className="flex justify-between text-sm text-[#555]">
+              <div className="p-3 space-y-1">
+                <h5 className="text-base font-semibold text-[#333] truncate">
+                  {i.food}
+                </h5>
+
+                <p className="text-lg text-[#F5F5DC] italic line-clamp-2">
+                  "{i.review}"
+                </p>
+
+                <div className="flex items-center justify-between text-[11px] text-[#555]">
                   <span>📍 {i.location}</span>
                   <span>⭐ {i.ratings}/5</span>
                 </div>
-                <p className="text-right text-xs italic text-[#F5F5DC]">
+
+                <p className="text-right text-[14px] italic text-[#F5F5DC] truncate">
                   {i.restaurant}
                 </p>
-                <p className="text-xs text-[#F5F5DC]">
+
+                <p className="text-[10px] text-[#F5F5DC]">
                   🕒 {new Date(i.createdAt).toLocaleString()}
                 </p>
+                <p className="text-[12px] text-[#333] italic">
+                  👤 Reviewed by {i.user?.name || "Anonymous"}
+                </p>
               </div>
+
               <Button
                 onClick={() => deleteReview(i._id)}
                 className="mt-2 text-sm text-red-600 hover:underline"

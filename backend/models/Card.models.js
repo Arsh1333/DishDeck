@@ -26,6 +26,8 @@ const cardSchema = new Schema(
       uid: String,
       name: String,
     },
+    image: String,
+    public_id: String,
   },
   { timestamps: true }
 );
