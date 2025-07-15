@@ -25,7 +25,9 @@ function CardForReview({ user }) {
 
   const getReview = async () => {
     try {
-      const review = await axios.get("http://localhost:5000/card/getCard");
+      const review = await axios.get(
+        `https://dishdeck-gtdd.onrender.com/card/getCard`
+      );
       setData(review.data);
       console.log(review.data);
     } catch (error) {
@@ -57,19 +59,22 @@ function CardForReview({ user }) {
     }
 
     try {
-      const res = await axios.post("http://localhost:5000/card/postCard", {
-        food,
-        location,
-        review,
-        ratings,
-        restaurant,
-        user: {
-          uid: user.uid,
-          name: user.displayName,
-        },
-        image: imageUrl,
-        public_id,
-      });
+      const res = await axios.post(
+        `https://dishdeck-gtdd.onrender.com/card/postCard`,
+        {
+          food,
+          location,
+          review,
+          ratings,
+          restaurant,
+          user: {
+            uid: user.uid,
+            name: user.displayName,
+          },
+          image: imageUrl,
+          public_id,
+        }
+      );
       // await getReview();
       if (res.status === 200 || res.status === 201) {
         // Review added successfully, now fetch updated list

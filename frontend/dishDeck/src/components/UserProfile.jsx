@@ -6,7 +6,9 @@ const UserProfile = ({ user }) => {
   const [myReviews, setMyReviews] = useState([]);
   const fetchUserReview = async () => {
     try {
-      const res = await axios.get("http://localhost:5000/card/getCard");
+      const res = await axios.get(
+        `https://dishdeck-gtdd.onrender.com/card/getCard`
+      );
       const all = res.data;
       // console.log(all);
       const filteredReview = all.filter(
@@ -26,7 +28,9 @@ const UserProfile = ({ user }) => {
 
   const deleteReview = async (id) => {
     try {
-      await axios.delete(`http://localhost:5000/card/deleteCard/${id}`);
+      await axios.delete(
+        `https://dishdeck-gtdd.onrender.com/card/deleteCard/${id}`
+      );
       setMyReviews(myReviews.filter((review) => review._id !== id));
     } catch (error) {
       console.error("Failed to delete review", error);
