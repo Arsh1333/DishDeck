@@ -51,7 +51,7 @@ const Auth = function ({ user, onLogin }) {
         ) : (
           <button
             onClick={login}
-            className="bg-[#6B8E23] hover:bg-[#587f1c] text-white px-5 py-2 rounded-md font-semibold transition-all duration-200"
+            className="bg-[#6B8E23] hover:bg-[#587f1c] text-white py-2 px-2 rounded-md font-semibold transition-all duration-200"
           >
             🔐 Sign in with Google
           </button>
