@@ -111,7 +111,7 @@ function CardForReview({ user }) {
   return (
     <div className="min-h-screen bg-[#F9F9F6] px-6 py-10">
       <h1 className="text-4xl font-bold text-center text-[#6B8E23] mb-8 tracking-wide">
-        🥑 DishDeck — Your Food Diary
+        🥑 DishDeck , Your Food Diary
       </h1>
 
       <div className="bg-[#3333] p-4 rounded-md shadow-md mb-8 flex flex-wrap gap-4 justify-center">
@@ -214,11 +214,7 @@ function CardForReview({ user }) {
         </>
       ) : (
         <div className="text-center text-gray-500 mb-6">
-          Please{" "}
-          <a href="/auth" className="text-[#6B8E23] underline">
-            log in
-          </a>{" "}
-          to add a review.
+          <p className="text-[#6B8E23]"> Please log in to add a review.</p>
         </div>
       )}
 
@@ -260,9 +256,7 @@ function CardForReview({ user }) {
                     {i.food}
                   </h5>
 
-                  <p className="text-lg text-[#F5F5DC] italic line-clamp-2">
-                    "{i.review}"
-                  </p>
+                  <p className="text-lg text-[#F5F5DC] italic ">"{i.review}"</p>
 
                   <div className="flex items-center justify-between text-[11px] text-[#555]">
                     <span>📍 {i.location}</span>

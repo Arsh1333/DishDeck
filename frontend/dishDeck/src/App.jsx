@@ -4,6 +4,7 @@ import "./App.css";
 import CardForReview from "./components/CardForReview.jsx";
 import UserProfile from "./components/UserProfile.jsx";
 import Auth from "./components/Auth.jsx";
+import LandingPage from "./components/LandingPage.jsx";
 
 function App() {
   const [user, setUser] = useState(() => {
@@ -32,6 +33,10 @@ function App() {
           }
         />
         <Route path="/profile" element={<UserProfile user={user} />} />
+        <Route
+          path="/"
+          element={<LandingPage user={user} onLogin={setUser} />}
+        />
       </Routes>
     </Router>
   );
