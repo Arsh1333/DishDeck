@@ -27,7 +27,7 @@ const Auth = function ({ user, onLogin }) {
     <header className="bg-[#f5f5dc] shadow-md border-b border-[#a4b884] px-4 py-3">
       <div className="flex flex-col sm:flex-row justify-between items-center gap-2">
         <div className="text-[#6B8E23] text-base sm:text-lg font-semibold flex items-center gap-1">
-          👋 <span>Welcome,&nbsp;</span>
+          <span>Welcome,&nbsp;</span>
           <span className="font-bold">{user?.displayName || "Guest"}</span>
         </div>
 
@@ -38,7 +38,7 @@ const Auth = function ({ user, onLogin }) {
                 href="/profile"
                 className="text-[#5a2a83] hover:underline font-medium text-sm sm:text-base"
               >
-                🧑‍💼 My Profile
+                My Profile
               </a>
               <button
                 onClick={logout}

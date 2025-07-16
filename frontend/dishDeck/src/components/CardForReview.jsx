@@ -77,7 +77,6 @@ function CardForReview({ user }) {
       );
       // await getReview();
       if (res.status === 200 || res.status === 201) {
-        // Review added successfully, now fetch updated list
         await getReview();
       } else {
         console.error("Failed to save review.");
@@ -116,7 +115,7 @@ function CardForReview({ user }) {
   return (
     <div className="min-h-screen bg-[#F9F9F6] px-6 py-10">
       <h1 className="text-4xl font-bold text-center text-[#6B8E23] mb-8 tracking-wide">
-        🥑 DishDeck , Your Food Diary
+        DishDeck , Your Food Diary
       </h1>
 
       <div className="bg-[#3333] p-4 rounded-md shadow-md mb-8 flex flex-wrap gap-4 justify-center">
@@ -167,7 +166,7 @@ function CardForReview({ user }) {
           <Modal show={openModal} size="md" onClose={onCloseModal} popup>
             <ModalHeader className="bg-[#6B8E23] rounded-t-md text-white px-6 py-3">
               <span className="text-lg font-semibold">
-                🍽️ Add Your Food Review
+                Add Your Food Review
               </span>
             </ModalHeader>
             <ModalBody className="bg-[#F5F5DC] px-6 py-6 rounded-b-md">
