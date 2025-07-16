@@ -10,6 +10,10 @@ function LandingPage({ user, onLogin }) {
           <p className="text-lg text-[#333] mb-6">
             Your personalized food review diary , discover and share tasty
             experiences.
+            <p className="text-center text-gray-600 mt-1 text-sm">
+              DishDeck helps you save food memories, discover new tastes, and
+              make smarter dining choices.
+            </p>
           </p>
 
           <div className="flex flex-col sm:flex-row gap-2 justify-center mb-6">
@@ -21,12 +25,12 @@ function LandingPage({ user, onLogin }) {
           </div>
 
           <img
-            src="https://cdn.pixabay.com/photo/2016/03/05/19/02/hamburger-1238246_1280.jpg"
+            src="../assets/pexels-chanwalrus-958545.jpg"
             alt="Food preview"
             className="w-full h-64 object-cover rounded-xl shadow-md border-4 border-white"
           />
         </div>
-        <section className="mt-10 grid grid-cols-1 md:grid-cols-3 gap-6 text-center">
+        {/* <section className="mt-10 grid grid-cols-1 md:grid-cols-3 gap-6 text-center">
           <div>
             <h3 className="text-xl font-bold text-[#6B8E23]">
               Save Your Favorite Meals
@@ -49,7 +53,7 @@ function LandingPage({ user, onLogin }) {
               Let others discover your favorite spots and tastes.
             </p>
           </div>
-        </section>
+        </section> */}
 
         <footer className="mt-12 text-sm text-[#777]">
           Built with 💚 by Arsh Pawar
