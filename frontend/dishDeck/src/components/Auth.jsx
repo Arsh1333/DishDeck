@@ -24,38 +24,38 @@ const Auth = function ({ user, onLogin }) {
   };
 
   return (
-    <header className="bg-[#f5f5dc] shadow-md border-b border-[#a4b884] px-6 py-3 flex justify-between items-center">
-      {/* Welcome Message Left */}
-      <div className="text-[#6B8E23] text-lg font-semibold flex items-center gap-2">
-        👋 Welcome,&nbsp;
-        <span className="font-bold">{user?.displayName || "Guest"}</span>
-      </div>
+    <header className="bg-[#f5f5dc] shadow-md border-b border-[#a4b884] px-4 py-3">
+      <div className="flex flex-col sm:flex-row justify-between items-center gap-2">
+        <div className="text-[#6B8E23] text-base sm:text-lg font-semibold flex items-center gap-1">
+          👋 <span>Welcome,&nbsp;</span>
+          <span className="font-bold">{user?.displayName || "Guest"}</span>
+        </div>
 
-      {/* Right Side Buttons */}
-      <div className="flex items-center gap-4">
-        {user ? (
-          <>
-            <a
-              href="/profile"
-              className="text-[#5a2a83] hover:underline font-medium flex items-center gap-1"
-            >
-              🧑‍💼 My Profile
-            </a>
+        <div className="flex items-center gap-3 flex-wrap justify-center sm:justify-end">
+          {user ? (
+            <>
+              <a
+                href="/profile"
+                className="text-[#5a2a83] hover:underline font-medium text-sm sm:text-base"
+              >
+                🧑‍💼 My Profile
+              </a>
+              <button
+                onClick={logout}
+                className="bg-[#E63946] hover:bg-[#c12f3b] text-white px-3 py-1.5 rounded-md font-medium text-sm sm:text-base"
+              >
+                Logout
+              </button>
+            </>
+          ) : (
             <button
-              onClick={logout}
-              className="bg-[#E63946] hover:bg-[#c12f3b] text-white px-4 py-1.5 rounded-md font-semibold shadow-sm transition-all duration-200"
+              onClick={login}
+              className="bg-[#6B8E23] hover:bg-[#587f1c] text-white px-4 py-2 rounded-md font-semibold text-sm sm:text-base transition"
             >
-              Logout
+              🔐 Sign in with Google
             </button>
-          </>
-        ) : (
-          <button
-            onClick={login}
-            className="bg-[#6B8E23] hover:bg-[#587f1c] text-white py-2 px-2 rounded-md font-semibold transition-all duration-200"
-          >
-            🔐 Sign in with Google
-          </button>
-        )}
+          )}
+        </div>
       </div>
     </header>
   );

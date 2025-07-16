@@ -1,23 +1,7 @@
 import { Link } from "react-router-dom";
 import { Button } from "flowbite-react";
-import { auth, provider, signInWithPopup, signOut } from "../firebase.js";
-import { useNavigate } from "react-router-dom";
 
 function LandingPage({ user, onLogin }) {
-  const navigate = useNavigate();
-
-  const login = async () => {
-    try {
-      const result = await signInWithPopup(auth, provider);
-      const firebaseUser = result.user;
-      localStorage.setItem("user", JSON.stringify(firebaseUser));
-      onLogin(firebaseUser);
-      navigate("/card");
-    } catch (error) {
-      console.log("Error while logging in", error);
-    }
-  };
-
   return (
     <>
       <div className="min-h-screen bg-[#F5F5DC] flex flex-col items-center justify-center px-6 py-12">
@@ -34,13 +18,6 @@ function LandingPage({ user, onLogin }) {
                 🍛 View Reviews
               </Button>
             </Link>
-
-            <Button
-              onClick={login}
-              className="bg-[#6B8E23] hover:bg-[#587f1c] text-white font-semibold px-6 py-2 rounded-md w-48"
-            >
-              ✍️ Start Reviewing
-            </Button>
           </div>
 
           <img
