@@ -1,5 +1,6 @@
 import { Link } from "react-router-dom";
 import { Button } from "flowbite-react";
+import foodImage from "../../assets/pexels-chanwalrus-958545.jpg";
 
 function LandingPage({ user, onLogin }) {
   return (
@@ -10,13 +11,9 @@ function LandingPage({ user, onLogin }) {
           <p className="text-lg text-[#333] mb-6">
             Your personalized food review diary , discover and share tasty
             experiences.
-            <p className="text-center text-gray-600 mt-1 text-sm">
-              DishDeck helps you save food memories, discover new tastes, and
-              make smarter dining choices.
-            </p>
           </p>
 
-          <div className="flex flex-col sm:flex-row gap-2 justify-center mb-6">
+          <div className="flex flex-col sm:flex-row gap-2 justify-center mt-3 mb-6">
             <Link to="/card">
               <Button className="!bg-[#E63946] hover:!bg-[#d7323f] text-white font-semibold p-3 rounded-md w-36">
                 View Reviews
@@ -25,7 +22,7 @@ function LandingPage({ user, onLogin }) {
           </div>
 
           <img
-            src="../assets/pexels-chanwalrus-958545.jpg"
+            src={foodImage}
             alt="Food preview"
             className="w-full h-64 object-cover rounded-xl shadow-md border-4 border-white"
           />
