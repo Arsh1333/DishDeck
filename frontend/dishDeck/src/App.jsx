@@ -5,6 +5,7 @@ import CardForReview from "./components/CardForReview.jsx";
 import UserProfile from "./components/UserProfile.jsx";
 import Auth from "./components/Auth.jsx";
 import LandingPage from "./components/LandingPage.jsx";
+import FoodCard from "./components/FoodCard.jsx";
 
 function App() {
   const [user, setUser] = useState(() => {
@@ -36,6 +37,10 @@ function App() {
         <Route
           path="/"
           element={<LandingPage user={user} onLogin={setUser} />}
+        />
+        <Route
+          path="/foodCard"
+          element={<FoodCard user={user} onLogin={setUser} />}
         />
       </Routes>
     </Router>

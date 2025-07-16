@@ -15,8 +15,19 @@ function LandingPage({ user, onLogin }) {
 
           <div className="flex flex-col sm:flex-row gap-2 justify-center mt-3 mb-6">
             <Link to="/card">
-              <Button className="!bg-[#E63946] hover:!bg-[#d7323f] text-white font-semibold p-3 rounded-md w-36">
+              <Button
+                className="!bg-[#E63946] hover:!bg-[#d7323f] text-white font-semibold p-3 rounded-md w-full sm:w-36
+"
+              >
                 View Reviews
+              </Button>
+            </Link>
+            <Link to="/foodCard">
+              <Button
+                className="!bg-[#3956e6] hover:!bg-[#7da3f6] text-white font-semibold p-3 rounded-md w-full sm:w-36
+"
+              >
+                Your Food Card
               </Button>
             </Link>
           </div>
