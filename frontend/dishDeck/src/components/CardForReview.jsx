@@ -168,17 +168,25 @@ function CardForReview({ user }) {
             </option>
           ))}
         </select>
+        <div className="flex justify-center ml-2">
+          <Button
+            onClick={() => setOpenModal(true)}
+            className="!bg-[#E63946] text-white hover:!bg-[#f87575] px-6 py-2 rounded-md font-medium"
+          >
+            Add Review
+          </Button>
+        </div>
       </div>
       {user ? (
         <>
-          <div className="flex justify-center ml-2">
+          {/* <div className="flex justify-center ml-2">
             <Button
               onClick={() => setOpenModal(true)}
               className="!bg-[#E63946] text-white hover:!bg-[#f87575] px-6 py-2 rounded-md font-medium"
             >
               Add Review
             </Button>
-          </div>
+          </div> */}
           <Modal show={openModal} size="md" onClose={onCloseModal} popup>
             <ModalHeader className="bg-[#6B8E23] rounded-t-md text-white px-6 py-3">
               <span className="text-lg font-semibold">
@@ -234,7 +242,10 @@ function CardForReview({ user }) {
         </>
       ) : (
         <div className="text-center text-gray-500 mb-6">
-          <p className="text-[#6B8E23]"> Please log in to add a review.</p>
+          <p className="text-[#6B8E23]">
+            {" "}
+            Please log in / sign in to add a review.
+          </p>
         </div>
       )}
 
@@ -244,8 +255,7 @@ function CardForReview({ user }) {
             const matchesSearch =
               item.food.toLowerCase().includes(searchQuery) ||
               item.location.toLowerCase().includes(searchQuery) ||
-              item.restaurant.toLowerCase().includes(searchQuery) ||
-              item.ratings.includes(searchQuery);
+              item.restaurant.toLowerCase().includes(searchQuery);
 
             const matchesLocation = selectedLocation
               ? item.location === selectedLocation
@@ -308,10 +318,6 @@ function CardForReview({ user }) {
             </p>
           );
         })()}
-
-        {/* {data.map((i) => (
-          
-        ))} */}
       </div>
     </div>
   );

@@ -36,7 +36,7 @@ const Auth = function ({ user, onLogin }) {
             <>
               <a
                 href="/profile"
-                className="text-[#5a2a83] hover:underline font-medium text-sm sm:text-base"
+                className="text-[#5a2a83] border-2 p-2 rounded-2xl hover:underline font-medium text-sm sm:text-base"
               >
                 My Profile
               </a>

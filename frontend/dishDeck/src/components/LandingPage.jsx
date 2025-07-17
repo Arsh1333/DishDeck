@@ -38,30 +38,6 @@ function LandingPage({ user, onLogin }) {
             className="w-full h-64 object-cover rounded-xl shadow-md border-4 border-white"
           />
         </div>
-        {/* <section className="mt-10 grid grid-cols-1 md:grid-cols-3 gap-6 text-center">
-          <div>
-            <h3 className="text-xl font-bold text-[#6B8E23]">
-              Save Your Favorite Meals
-            </h3>
-            <p className="text-sm text-gray-700 mt-2">
-              Easily record dishes you loved and where you had them.
-            </p>
-          </div>
-          <div>
-            <h3 className="text-xl font-bold text-[#6B8E23]">Smart Search</h3>
-            <p className="text-sm text-gray-700 mt-2">
-              Find reviews by dish, location, or restaurant instantly.
-            </p>
-          </div>
-          <div>
-            <h3 className="text-xl font-bold text-[#6B8E23]">
-              Share with Friends
-            </h3>
-            <p className="text-sm text-gray-700 mt-2">
-              Let others discover your favorite spots and tastes.
-            </p>
-          </div>
-        </section> */}
 
         <footer className="mt-12 text-sm text-[#777]">
           Built with 💚 by Arsh Pawar
