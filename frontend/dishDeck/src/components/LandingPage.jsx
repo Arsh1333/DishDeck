@@ -22,12 +22,12 @@ function LandingPage({ user, onLogin }) {
                 View Reviews
               </Button>
             </Link>
-            <Link to="/foodCard">
+            <Link to="/about">
               <Button
                 className="!bg-[#3956e6] hover:!bg-[#7da3f6] text-white font-semibold p-3 rounded-md w-full sm:w-36
 "
               >
-                Your Food Card
+                About
               </Button>
             </Link>
           </div>
