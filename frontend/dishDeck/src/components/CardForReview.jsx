@@ -21,6 +21,7 @@ function CardForReview({ user }) {
   const [searchQuery, setSearchQuery] = useState("");
   const [selectedLocation, setSelectedLocation] = useState("");
   const [selectedFood, setSelectedFood] = useState("");
+  const [selectedRatings, setSelectedRatings] = useState("");
   const [imageFile, setImageFile] = useState(null);
 
   const getReview = async () => {
@@ -142,6 +143,21 @@ function CardForReview({ user }) {
 
         <select
           className="p-2 rounded border bg-[#F5F5DC] border-[#6B8E23]"
+          value={selectedRatings}
+          onChange={(e) => setSelectedRatings(e.target.value)}
+        >
+          <option value="">All Ratings</option>
+          {[...new Set(data.map((item) => item.ratings))].map(
+            (ratings, idx) => (
+              <option key={idx} value={ratings}>
+                {ratings}
+              </option>
+            )
+          )}
+        </select>
+
+        <select
+          className="p-2 rounded border bg-[#F5F5DC] border-[#6B8E23]"
           value={selectedFood}
           onChange={(e) => setSelectedFood(e.target.value)}
         >
@@ -228,7 +244,8 @@ function CardForReview({ user }) {
             const matchesSearch =
               item.food.toLowerCase().includes(searchQuery) ||
               item.location.toLowerCase().includes(searchQuery) ||
-              item.restaurant.toLowerCase().includes(searchQuery);
+              item.restaurant.toLowerCase().includes(searchQuery) ||
+              item.ratings.includes(searchQuery);
 
             const matchesLocation = selectedLocation
               ? item.location === selectedLocation
@@ -237,8 +254,13 @@ function CardForReview({ user }) {
             const matchesFood = selectedFood
               ? item.food === selectedFood
               : true;
-
-            return matchesSearch && matchesLocation && matchesFood;
+            const matchesRatings = selectedRatings
+              ? String(item.ratings) === String(selectedRatings)
+              : true;
+            // console.log(matchesFood, matchesLocation, matchesRatings);
+            return (
+              matchesSearch && matchesLocation && matchesFood && matchesRatings
+            );
           });
 
           return filtered.length > 0 ? (
