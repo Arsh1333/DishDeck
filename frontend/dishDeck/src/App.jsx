@@ -38,10 +38,7 @@ function App() {
           path="/"
           element={<LandingPage user={user} onLogin={setUser} />}
         />
-        <Route
-          path="/about"
-          element={<About user={user} onLogin={setUser} />}
-        />
+        <Route path="/about" element={<About />} />
       </Routes>
     </Router>
   );
