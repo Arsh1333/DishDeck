@@ -58,6 +58,11 @@ function CardForReview({ user }) {
       imageUrl = uploaded.imageUrl;
       public_id = uploaded.public_id;
     }
+    const ratingValue = Number(ratings);
+    if (isNaN(ratingValue) || ratingValue < 1 || ratingValue > 5) {
+      alert("Please enter a valid rating between 1 and 5.");
+      return;
+    }
 
     try {
       const res = await axios.post(
@@ -179,14 +184,6 @@ function CardForReview({ user }) {
       </div>
       {user ? (
         <>
-          {/* <div className="flex justify-center ml-2">
-            <Button
-              onClick={() => setOpenModal(true)}
-              className="!bg-[#E63946] text-white hover:!bg-[#f87575] px-6 py-2 rounded-md font-medium"
-            >
-              Add Review
-            </Button>
-          </div> */}
           <Modal show={openModal} size="md" onClose={onCloseModal} popup>
             <ModalHeader className="bg-[#6B8E23] rounded-t-md text-white px-6 py-3">
               <span className="text-lg font-semibold">
