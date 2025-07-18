@@ -1,7 +1,7 @@
 import { useState, useEffect } from "react";
 import axios from "axios";
 
-function LocationInput() {
+function LocationInput({ onSelect }) {
   const [query, setQuery] = useState("");
   const [results, setResults] = useState([]);
   const [selected, setSelected] = useState("");
@@ -14,19 +14,20 @@ function LocationInput() {
 
     const fetchSuggestions = async (e) => {
       try {
-        const res = await axios.fetch(
+        const res = await axios.get(
           `https://photon.komoot.io/api/?q=${encodeURIComponent(
             query
           )}&limit=5`,
           { signal: controller.signal }
         );
-        const data = res.json();
-        setResults(data);
-      } catch (error) {
-        if (err.name !== "AbortError") {
-          console.error("Error fetching locations:", err);
-        }
-        console.log(error);
+        // console.log(res);
+        const data = res.data;
+        setResults(data.features);
+      } catch (err) {
+        // if (err.name !== "AbortError") {
+        //   console.error("Error fetching locations:", err);
+        // }
+        console.log(err);
       }
     };
     const delayDebounce = setTimeout(fetchSuggestions, 300);

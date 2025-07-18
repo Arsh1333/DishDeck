@@ -9,6 +9,7 @@ import {
   ModalHeader,
   TextInput,
 } from "flowbite-react";
+import LocationInput from "./LocationInput";
 
 function CardForReview({ user }) {
   const [data, setData] = useState([]);
@@ -91,6 +92,12 @@ function CardForReview({ user }) {
     } catch (error) {
       console.log(error);
     }
+  };
+  const handleLocationSelect = (place) => {
+    const fullPlace = `${place.properties.name}, ${
+      place.properties.city || ""
+    }, ${place.properties.country || ""}`;
+    setLocation(fullPlace);
   };
 
   const uploadImageToCloudinary = async (file) => {
@@ -196,7 +203,7 @@ function CardForReview({ user }) {
                   { label: "Food Item", value: food, set: setFood },
                   { label: "Food Review", value: review, set: setReview },
                   { label: "Rating (1–5)", value: ratings, set: setRatings },
-                  { label: "Location", value: location, set: setLocation },
+                  // { label: "Location", value: location, set: setLocation },
                   {
                     label: "Restaurant",
                     value: restaurant,
@@ -212,10 +219,17 @@ function CardForReview({ user }) {
                       onChange={(e) => set(e.target.value)}
                       placeholder={`Enter ${label.toLowerCase()}`}
                       required
-                      className="w-full px-4 py-2 bg-white border border-[#6B8E23] rounded-md shadow-sm placeholder-gray-500 text-gray-800 focus:outline-none focus:ring-2 focus:ring-[#6B8E23]"
+                      className="w-full px-4 py-2 border border-[#6B8E23] rounded-md shadow-sm placeholder-gray-500 text-gray-800 focus:outline-none focus:ring-2 focus:ring-[#6B8E23]"
                     />
                   </div>
                 ))}
+                <label className="block text-sm font-medium text-[#333] mb-1">
+                  Location
+                </label>
+                <LocationInput
+                  className="w-full px-4 py-2 !bg-white border border-[#6B8E23] rounded-md shadow-sm"
+                  onSelect={handleLocationSelect}
+                ></LocationInput>
                 <div>
                   <label className="block text-sm font-medium text-[#333] mb-1">
                     Upload Image (Optional)
