@@ -10,8 +10,10 @@ import {
   TextInput,
 } from "flowbite-react";
 import LocationInput from "./LocationInput";
+import { useNavigate } from "react-router-dom";
+import { auth, provider, signInWithPopup, signOut } from "../firebase.js";
 
-function CardForReview({ user }) {
+function CardForReview({ user, onLogin }) {
   const [data, setData] = useState([]);
   const [openModal, setOpenModal] = useState(false);
   const [food, setFood] = useState("");
@@ -64,7 +66,17 @@ function CardForReview({ user }) {
       alert("Please enter a valid rating between 1 and 5.");
       return;
     }
-
+    // let token = localStorage.getItem("user", user);
+    // console.log(token);
+    // if (!token) {
+    //   console.log("No token found");
+    //   console.log("No token found");
+    //   alert("Please sign in to post a review.");
+    //   return; // Stop further execution
+    // }
+    // if (!user) {
+    //   console.log("User not found");
+    // }
     try {
       const res = await axios.post(
         `https://dishdeck-gtdd.onrender.com/card/postCard`,
@@ -125,6 +137,20 @@ function CardForReview({ user }) {
       return "";
     }
   };
+
+  const navigate = useNavigate();
+
+  const login = async () => {
+    try {
+      const result = await signInWithPopup(auth, provider);
+      const firebaseUser = result.user;
+      localStorage.setItem("user", JSON.stringify(firebaseUser));
+      onLogin(firebaseUser);
+      navigate("/card");
+    } catch (error) {
+      console.log("Error while logging in", error);
+    }
+  };
   return (
     <div className="min-h-screen bg-[#F9F9F6] px-6 py-10">
       <h1 className="text-4xl font-bold text-center text-[#6B8E23] mb-8 tracking-wide">
@@ -182,7 +208,13 @@ function CardForReview({ user }) {
         </select>
         <div className="flex justify-center ml-2">
           <Button
-            onClick={() => setOpenModal(true)}
+            onClick={async () => {
+              if (!user) {
+                console.log("user not found");
+                login();
+              }
+              setOpenModal(true);
+            }}
             className="!bg-[#E63946] text-white hover:!bg-[#f87575] px-6 py-2 rounded-md font-medium"
           >
             Add Review

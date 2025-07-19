@@ -21,10 +21,11 @@ function App() {
           element={
             <>
               <Auth user={user} onLogin={setUser} />
-              <CardForReview user={user} />
+              <CardForReview user={user} onLogin={setUser} />
             </>
           }
         />
+
         <Route
           path="*"
           element={

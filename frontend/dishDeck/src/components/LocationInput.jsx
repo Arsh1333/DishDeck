@@ -24,9 +24,9 @@ function LocationInput({ onSelect }) {
         const data = res.data;
         setResults(data.features);
       } catch (err) {
-        // if (err.name !== "AbortError") {
-        //   console.error("Error fetching locations:", err);
-        // }
+        if (err.name !== "AbortError") {
+          console.error("Error fetching locations:", err);
+        }
         console.log(err);
       }
     };
