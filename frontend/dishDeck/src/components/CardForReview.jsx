@@ -138,15 +138,12 @@ function CardForReview({ user, onLogin }) {
     }
   };
 
-  const navigate = useNavigate();
-
   const login = async () => {
     try {
       const result = await signInWithPopup(auth, provider);
       const firebaseUser = result.user;
       localStorage.setItem("user", JSON.stringify(firebaseUser));
       onLogin(firebaseUser);
-      navigate("/card");
     } catch (error) {
       console.log("Error while logging in", error);
     }
