@@ -38,7 +38,7 @@ const UserProfile = ({ user }) => {
   };
 
   return (
-    <div className="min-h-screen px-6 py-10 bg-[#F9F9F6]">
+    <div className="min-h-screen font-sec px-6 py-10 bg-[#F9F9F6]">
       {/* User Header */}
       <div className="flex flex-col sm:flex-row items-center justify-between mb-8">
         <div className="flex items-center gap-4">

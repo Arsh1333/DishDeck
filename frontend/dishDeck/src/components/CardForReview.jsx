@@ -149,8 +149,8 @@ function CardForReview({ user, onLogin }) {
     }
   };
   return (
-    <div className="min-h-screen bg-[#F9F9F6] px-6 py-10">
-      <h1 className="text-4xl font-bold text-center text-[#6B8E23] mb-8 tracking-wide">
+    <div className="min-h-screen bg-[#F9F9F6] font-display px-6 py-10">
+      <h1 className="text-4xl font-bold text-center font-sec text-[#6B8E23] mb-8 tracking-wide">
         DishDeck , Your Food Diary
       </h1>
 
@@ -317,7 +317,7 @@ function CardForReview({ user, onLogin }) {
             filtered.map((i) => (
               <Card
                 key={i._id}
-                className="!bg-[#A3BE8C] border border-[#e6e6e6] rounded-xl 
+                className="!bg-[#A3BE8C] border font-display border-[#e6e6e6] rounded-xl 
     shadow-[0_4px_12px_#33333360] 
     hover:shadow-[0_8px_24px_#333333cc] 
     transition-shadow duration-300 ease-in-out"
@@ -328,25 +328,27 @@ function CardForReview({ user, onLogin }) {
                 imgAlt={i.food}
               >
                 <div className="p-3 space-y-1">
-                  <h5 className="text-base font-semibold text-[#333] truncate">
+                  <h5 className="text-base font-semibold font-sec text-[#333] truncate">
                     {i.food}
                   </h5>
 
-                  <p className="text-lg text-[#F5F5DC] italic ">"{i.review}"</p>
+                  <p className="text-lg text-[#F5F5DC] font-sec ">
+                    "{i.review}"
+                  </p>
 
-                  <div className="flex items-center justify-between text-[11px] text-[#555]">
+                  <div className="flex font-sec items-center justify-between text-[11px] text-[#555]">
                     <span>📍 {i.location}</span>
                     <span>⭐ {i.ratings}/5</span>
                   </div>
 
-                  <p className="text-right text-[14px] italic text-[#F5F5DC] truncate">
+                  <p className="text-right text-[14px] font-sec italic text-[#F5F5DC] truncate">
                     {i.restaurant}
                   </p>
 
-                  <p className="text-[10px] text-[#F5F5DC]">
+                  <p className="text-[10px] font-sec text-[#F5F5DC]">
                     🕒 {new Date(i.createdAt).toLocaleString()}
                   </p>
-                  <p className="text-[12px] text-[#333] italic">
+                  <p className="text-[12px] font-sec text-[#333] italic">
                     👤 Reviewed by {i.user?.name || "Anonymous"}
                   </p>
                 </div>
