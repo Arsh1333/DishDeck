@@ -332,7 +332,7 @@ function CardForReview({ user, onLogin }) {
                     {i.food}
                   </h5>
 
-                  <p className="text-lg text-[#F5F5DC] font-sec ">
+                  <p className="text-lg text-[#2c2c20] font-sec ">
                     "{i.review}"
                   </p>
 
@@ -341,7 +341,7 @@ function CardForReview({ user, onLogin }) {
                     <span>⭐ {i.ratings}/5</span>
                   </div>
 
-                  <p className="text-right text-[14px] font-sec italic text-[#F5F5DC] truncate">
+                  <p className="text-right text-[14px] font-sec italic text-[#2d2d25] truncate">
                     {i.restaurant}
                   </p>
 
