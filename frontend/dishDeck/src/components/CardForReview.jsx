@@ -154,7 +154,7 @@ function CardForReview({ user, onLogin }) {
         DishDeck , Your Food Diary
       </h1>
 
-      <div className="bg-[#3333] p-4 rounded-md shadow-md mb-8 flex flex-wrap gap-4 justify-center">
+      <div className="bg-[#3333] p-4 rounded-md font-sec shadow-md mb-8 flex flex-wrap gap-4 justify-center">
         <input
           type="text"
           placeholder="Search by dish, location, restaurant..."
@@ -312,7 +312,6 @@ function CardForReview({ user, onLogin }) {
               matchesSearch && matchesLocation && matchesFood && matchesRatings
             );
           });
-
           return filtered.length > 0 ? (
             filtered.map((i) => (
               <Card
@@ -320,7 +319,7 @@ function CardForReview({ user, onLogin }) {
                 className="!bg-[#A3BE8C] border font-display border-[#e6e6e6] rounded-xl 
     shadow-[0_4px_12px_#33333360] 
     hover:shadow-[0_8px_24px_#333333cc] 
-    transition-shadow duration-300 ease-in-out"
+    transition-shadow duration-300 ease-in-out opacity-0 translate-y-5 animate-fadeInUp"
                 imgSrc={
                   i.image ||
                   "https://dummyimage.com/300x200/cccccc/000000&text=No+Image"
