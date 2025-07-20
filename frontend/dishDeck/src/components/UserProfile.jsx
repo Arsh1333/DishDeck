@@ -65,7 +65,7 @@ const UserProfile = ({ user }) => {
           {myReviews.map((i) => (
             <Card
               key={i._id}
-              className="!bg-[#ddf0bb] border border-[#e0e0e0] rounded-xl 
+              className="!bg-[#f5f5dc] border border-[#e0e0e0] rounded-xl 
     shadow-md hover:shadow-lg transition-shadow duration-300 ease-in-out 
     overflow-hidden"
             >

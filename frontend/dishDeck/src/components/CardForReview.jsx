@@ -10,7 +10,6 @@ import {
   TextInput,
 } from "flowbite-react";
 import LocationInput from "./LocationInput";
-import { useNavigate } from "react-router-dom";
 import { auth, provider, signInWithPopup, signOut } from "../firebase.js";
 
 function CardForReview({ user, onLogin }) {
@@ -149,12 +148,8 @@ function CardForReview({ user, onLogin }) {
     }
   };
   return (
-    <div className="min-h-screen bg-[#F9F9F6] font-display px-6 py-10">
-      <h1 className="text-4xl font-bold font-sec text-[#6B8E23] mb-8 tracking-wide opacity-0 translate-y-5 animate-fadeInUp w-full text-center">
-        DishDeck , Your Food Diary
-      </h1>
-
-      <div className="bg-[#3333] p-4 rounded-md font-sec shadow-md mb-8 flex flex-wrap gap-4 justify-center opacity-0 translate-y-5 animate-fadeInUp w-full text-center">
+    <div className="min-h-screen bg-[#F9F9F6] font-display px-6 py-6">
+      <div className="bg-[#cdcdcd33] p-4 rounded-md font-sec shadow-md mb-8 flex flex-wrap gap-4 justify-center opacity-0 translate-y-5 animate-fadeInUp w-full text-center">
         <input
           type="text"
           placeholder="Search by dish, location, restaurant..."
@@ -316,7 +311,7 @@ function CardForReview({ user, onLogin }) {
             filtered.map((i) => (
               <Card
                 key={i._id}
-                className="!bg-[#ddf0bb] rounded-xl shadow-xl hover:shadow-lg transition-shadow duration-300 ease-in-out overflow-hidden font-sec"
+                className="!bg-[#f5f5dc] rounded-xl border-none shadow-lg hover:shadow-4xl transition-shadow duration-300 ease-in-out overflow-hidden font-sec"
               >
                 <img
                   className="w-full h-48 object-cover rounded-[10px]"
@@ -337,9 +332,7 @@ function CardForReview({ user, onLogin }) {
                     </span>
                   </div>
 
-                  <p className="text-sm text-gray-600 line-clamp-2">
-                    "{i.review}"
-                  </p>
+                  <p className="text-sm text-gray-600 ">"{i.review}"</p>
 
                   <div className="flex justify-between text-xs text-gray-500">
                     <span>📍 {i.location}</span>

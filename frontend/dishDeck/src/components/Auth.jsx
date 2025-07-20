@@ -26,7 +26,7 @@ const Auth = function ({ user, onLogin }) {
   return (
     <header className="bg-[#f5f5dc] font-sec shadow-md border-b border-[#a4b884] px-4 py-3 opacity-0 animate-fadeInUp">
       <div className="flex flex-col sm:flex-row justify-between items-center gap-2">
-        <div className="text-[#6B8E23] text-base sm:text-lg font-semibold font-display flex items-center gap-1">
+        <div className=" text-base sm:text-lg font-semibold font-sec flex items-center gap-1">
           <span>Welcome,&nbsp;</span>
           <span className="font-bold">{user?.displayName || "Guest"}</span>
         </div>
@@ -34,17 +34,14 @@ const Auth = function ({ user, onLogin }) {
         <div className="flex items-center gap-3 flex-wrap justify-center sm:justify-end">
           {user ? (
             <>
-              <a
-                href="/profile"
-                className="text-[#5a2a83] border-2 p-2 rounded-[25px] font-medium text-sm sm:text-base"
-              >
+              <a href="/profile">
                 <svg
                   xmlns="http://www.w3.org/2000/svg"
                   fill="none"
                   viewBox="0 0 24 24"
                   strokeWidth={1.5}
                   stroke="currentColor"
-                  className="size-6"
+                  className="size-10"
                 >
                   <path
                     strokeLinecap="round"

@@ -6,6 +6,7 @@ import UserProfile from "./components/UserProfile.jsx";
 import Auth from "./components/Auth.jsx";
 import LandingPage from "./components/LandingPage.jsx";
 import About from "./components/About.jsx";
+import "leaflet/dist/leaflet.css";
 
 function App() {
   const [user, setUser] = useState(() => {
