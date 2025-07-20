@@ -24,7 +24,7 @@ const Auth = function ({ user, onLogin }) {
   };
 
   return (
-    <header className="bg-[#f5f5dc] font-sec shadow-md border-b border-[#a4b884] px-4 py-3">
+    <header className="bg-[#f5f5dc] font-sec shadow-md border-b border-[#a4b884] px-4 py-3 opacity-0 animate-fadeInUp">
       <div className="flex flex-col sm:flex-row justify-between items-center gap-2">
         <div className="text-[#6B8E23] text-base sm:text-lg font-semibold font-display flex items-center gap-1">
           <span>Welcome,&nbsp;</span>
@@ -36,7 +36,7 @@ const Auth = function ({ user, onLogin }) {
             <>
               <a
                 href="/profile"
-                className="text-[#5a2a83] border-2 p-2 rounded-2xl hover:underline font-medium text-sm sm:text-base"
+                className="text-[#5a2a83] border-2 p-2 rounded-[25px] font-medium text-sm sm:text-base"
               >
                 <svg
                   xmlns="http://www.w3.org/2000/svg"

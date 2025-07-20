@@ -2,8 +2,8 @@ import { useState } from "react";
 
 function About() {
   return (
-    <div className="min-h-screen bg-[#F5F5DC] text-[#333] px-6 py-12">
-      <div className="max-w-3xl mx-auto bg-white rounded-2xl shadow-md p-8">
+    <div className="min-h-screen bg-[#F5F5DC] text-[#333]  px-6 py-12">
+      <div className="max-w-3xl mx-auto bg-white rounded-2xl opacity-0 translate-y-5 animate-fadeInUp shadow-md p-8">
         <h1 className="text-3xl font-bold text-[#E63946] mb-4 text-center">
           About DishDeck 🍽️
         </h1>
@@ -24,8 +24,8 @@ function About() {
           your journey fun, simple, and flavorful.
         </p>
         <p className="text-gray-700 text-base mb-4">
-          💡 Every dish reviewed helps others make better choices — and maybe
-          even discover their new favorite meal.
+          Every dish reviewed helps others make better choices — and maybe even
+          discover their new favorite meal.
         </p>
         <div className="mt-8 text-center">
           <p className="text-sm text-gray-500">

@@ -150,11 +150,11 @@ function CardForReview({ user, onLogin }) {
   };
   return (
     <div className="min-h-screen bg-[#F9F9F6] font-display px-6 py-10">
-      <h1 className="text-4xl font-bold text-center font-sec text-[#6B8E23] mb-8 tracking-wide">
+      <h1 className="text-4xl font-bold font-sec text-[#6B8E23] mb-8 tracking-wide opacity-0 translate-y-5 animate-fadeInUp w-full text-center">
         DishDeck , Your Food Diary
       </h1>
 
-      <div className="bg-[#3333] p-4 rounded-md font-sec shadow-md mb-8 flex flex-wrap gap-4 justify-center">
+      <div className="bg-[#3333] p-4 rounded-md font-sec shadow-md mb-8 flex flex-wrap gap-4 justify-center opacity-0 translate-y-5 animate-fadeInUp w-full text-center">
         <input
           type="text"
           placeholder="Search by dish, location, restaurant..."
@@ -316,40 +316,44 @@ function CardForReview({ user, onLogin }) {
             filtered.map((i) => (
               <Card
                 key={i._id}
-                className="!bg-[#A3BE8C] border font-display border-[#e6e6e6] rounded-xl 
-    shadow-[0_4px_12px_#33333360] 
-    hover:shadow-[0_8px_24px_#333333cc] 
-    transition-shadow duration-300 ease-in-out opacity-0 translate-y-5 animate-fadeInUp"
-                imgSrc={
-                  i.image ||
-                  "https://dummyimage.com/300x200/cccccc/000000&text=No+Image"
-                }
-                imgAlt={i.food}
+                className="!bg-[#ddf0bb] rounded-xl shadow-xl hover:shadow-lg transition-shadow duration-300 ease-in-out overflow-hidden font-sec"
               >
-                <div className="p-3 space-y-1">
-                  <h5 className="text-base font-semibold font-sec text-[#333] truncate">
-                    {i.food}
-                  </h5>
+                <img
+                  className="w-full h-48 object-cover"
+                  src={
+                    i.image ||
+                    "https://dummyimage.com/300x200/cccccc/000000&text=No+Image"
+                  }
+                  alt={i.food}
+                />
 
-                  <p className="text-lg text-[#2c2c20] font-sec ">
+                <div className="p-4 space-y-2">
+                  <div className="flex justify-between items-center">
+                    <h3 className="text-lg font-bold text-[#333] truncate">
+                      {i.food}
+                    </h3>
+                    <span className="text-sm bg-green-100 text-green-700 px-2 py-0.5 rounded-full">
+                      ⭐ {i.ratings}/5
+                    </span>
+                  </div>
+
+                  <p className="text-sm text-gray-600 line-clamp-2">
                     "{i.review}"
                   </p>
 
-                  <div className="flex font-sec items-center justify-between text-[11px] text-[#555]">
+                  <div className="flex justify-between text-xs text-gray-500">
                     <span>📍 {i.location}</span>
-                    <span>⭐ {i.ratings}/5</span>
+                    <span className="italic">{i.restaurant}</span>
                   </div>
 
-                  <p className="text-right text-[14px] font-sec italic text-[#2d2d25] truncate">
-                    {i.restaurant}
-                  </p>
-
-                  <p className="text-[10px] font-sec text-[#F5F5DC]">
-                    🕒 {new Date(i.createdAt).toLocaleString()}
-                  </p>
-                  <p className="text-[12px] font-sec text-[#333] italic">
-                    👤 Reviewed by {i.user?.name || "Anonymous"}
-                  </p>
+                  <div className="flex justify-between items-center mt-2">
+                    <p className="text-[11px] text-gray-400">
+                      {new Date(i.createdAt).toLocaleDateString()}
+                    </p>
+                    <p className="text-sm text-gray-700 italic">
+                      - {i.user?.name || "Anonymous"}
+                    </p>
+                  </div>
                 </div>
               </Card>
             ))

@@ -65,48 +65,61 @@ const UserProfile = ({ user }) => {
           {myReviews.map((i) => (
             <Card
               key={i._id}
-              className="!bg-[#A3BE8C] border border-[#e6e6e6] rounded-xl 
-                shadow-[0_4px_12px_#33333340] hover:shadow-[0_8px_24px_#33333370] 
-                transition-shadow duration-300 ease-in-out overflow-hidden"
-              imgSrc={
-                i.image ||
-                "https://dummyimage.com/300x200/cccccc/000000&text=No+Image"
-              }
-              imgAlt={i.food}
+              className="!bg-[#ddf0bb] border border-[#e0e0e0] rounded-xl 
+    shadow-md hover:shadow-lg transition-shadow duration-300 ease-in-out 
+    overflow-hidden"
             >
-              <div className="p-3 space-y-2">
-                <h5 className="text-lg font-semibold text-[#2e2e2e] truncate">
-                  {i.food}
-                </h5>
+              <img
+                src={
+                  i.image ||
+                  "https://dummyimage.com/600x400/cccccc/000000&text=No+Image"
+                }
+                alt={i.food}
+                className="w-full h-48 object-cover"
+              />
 
-                <p className="text-sm text-[#F5F5DC] italic line-clamp-2">
+              <div className="p-4 space-y-2">
+                {/* Food & Rating */}
+                <div className="flex justify-between items-start">
+                  <h5 className="text-xl font-semibold text-[#2d2d2d]">
+                    {i.food}
+                  </h5>
+                  <div className="text-sm text-yellow-600 font-bold bg-yellow-100 px-2 py-1 rounded">
+                    ⭐ {i.ratings}/5
+                  </div>
+                </div>
+
+                {/* Review Quote */}
+                <p className="text-sm text-gray-600 italic line-clamp-3">
                   "{i.review}"
                 </p>
 
-                <div className="flex justify-between text-xs text-[#222]">
-                  <span>📍 {i.location}</span>
-                  <span>⭐ {i.ratings}/5</span>
+                {/* Location and Restaurant */}
+                <div className="flex flex-wrap gap-2 text-sm text-gray-700">
+                  <span className="bg-gray-100 px-2 py-1 rounded-full">
+                    📍 {i.location}
+                  </span>
+                  <span className="bg-gray-100 px-2 py-1 rounded-full">
+                    {i.restaurant}
+                  </span>
                 </div>
 
-                <p className="text-xs text-right italic text-[#F5F5DC]">
-                  🍽️ {i.restaurant}
-                </p>
+                {/* Reviewer and Time */}
+                <div className="flex justify-between items-center text-xs text-gray-500 pt-2">
+                  <span>👤 {i.user?.name || "Anonymous"}</span>
+                  <span>🕒 {new Date(i.createdAt).toLocaleString()}</span>
+                </div>
 
-                <p className="text-[11px] text-[#fdfdfd]">
-                  🕒 {new Date(i.createdAt).toLocaleString()}
-                </p>
-
-                <div className="text-[12px] text-[#333] italic">
-                  👤 Reviewed by {i.user?.name || "Anonymous"}
+                {/* Delete Button */}
+                <div className="pt-3">
+                  <Button
+                    onClick={() => deleteReview(i._id)}
+                    className="w-full bg-red-500 hover:bg-red-600 text-white text-sm rounded-md transition-all"
+                  >
+                    🗑️ Delete Review
+                  </Button>
                 </div>
               </div>
-
-              <Button
-                onClick={() => deleteReview(i._id)}
-                className="mt-2 bg-red-500 hover:bg-red-600 text-white text-sm rounded-md transition-all"
-              >
-                🗑️ Delete
-              </Button>
             </Card>
           ))}
         </div>

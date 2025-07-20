@@ -6,7 +6,7 @@ function LandingPage({ user, onLogin }) {
   return (
     <>
       <div className="min-h-screen font-sec bg-[#F5F5DC] flex flex-col items-center justify-center px-6 py-12">
-        <div className="bg-[#A3BE8C] p-8 rounded-2xl shadow-lg max-w-3xl w-full text-center">
+        <div className="bg-[#A3BE8C] p-8 rounded-2xl shadow-lg max-w-3xl opacity-0 translate-y-5 animate-fadeInUp w-full text-center">
           <h1 className="text-5xl font-bold text-white mb-4">DishDeck</h1>
           <p className="text-lg text-[#333] mb-6">
             Your personalized food review diary , discover and share tasty
