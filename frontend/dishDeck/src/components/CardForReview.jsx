@@ -319,7 +319,7 @@ function CardForReview({ user, onLogin }) {
                 className="!bg-[#ddf0bb] rounded-xl shadow-xl hover:shadow-lg transition-shadow duration-300 ease-in-out overflow-hidden font-sec"
               >
                 <img
-                  className="w-full h-48 object-cover"
+                  className="w-full h-48 object-cover rounded-[10px]"
                   src={
                     i.image ||
                     "https://dummyimage.com/300x200/cccccc/000000&text=No+Image"
