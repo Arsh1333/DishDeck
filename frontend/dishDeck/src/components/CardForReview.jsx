@@ -155,7 +155,7 @@ function CardForReview({ user, onLogin }) {
           placeholder="Search by dish, location, restaurant..."
           value={searchQuery}
           onChange={(e) => setSearchQuery(e.target.value.toLowerCase())}
-          className="w-full p-3 sm:w-64 !rounded-lg !border-gray-300 focus:!ring-2 focus:!ring-[#E63946] focus:!border-transparent text-gray-800 placeholder-gray-500"
+          className="w-full p-3 sm:w-64 !rounded-lg border !border-gray-300 focus:!ring-2 focus:!ring-[#E63946] focus:!border-transparent text-gray-800 placeholder-gray-500"
         />
 
         <select
