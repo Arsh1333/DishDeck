@@ -148,18 +148,18 @@ function CardForReview({ user, onLogin }) {
     }
   };
   return (
-    <div className="min-h-screen bg-[#F9F9F6] font-display px-6 py-6">
-      <div className="bg-[#cdcdcd33] p-4 rounded-md font-sec shadow-md mb-8 flex flex-wrap gap-4 justify-center opacity-0 translate-y-5 animate-fadeInUp w-full text-center">
+    <div className="min-h-screen bg-gray-50 font-sec px-4 py-8 sm:px-6 lg:px-8">
+      <div className="bg-white p-4 sm:p-6 rounded-xl font-sec shadow-lg mb-8 flex flex-wrap gap-4 justify-center items-center opacity-0 translate-y-5 animate-fadeInUp w-full">
         <input
           type="text"
           placeholder="Search by dish, location, restaurant..."
           value={searchQuery}
           onChange={(e) => setSearchQuery(e.target.value.toLowerCase())}
-          className="w-full sm:w-64 px-4 py-2 bg-[#F5F5DC] text-[#333] placeholder-[#666] border border-[#6B8E23] focus:outline-none focus:ring-2 focus:ring-[#6B8E23] rounded-md shadow-sm"
+          className="w-full p-3 sm:w-64 !rounded-lg !border-gray-300 focus:!ring-2 focus:!ring-[#E63946] focus:!border-transparent text-gray-800 placeholder-gray-500"
         />
 
         <select
-          className="p-2 rounded border bg-[#F5F5DC] border-[#6B8E23]"
+          className="p-2.5 rounded-lg border border-gray-300 bg-white text-gray-800 focus:outline-none focus:ring-2 focus:ring-[#E63946] focus:border-transparent shadow-sm"
           value={selectedLocation}
           onChange={(e) => setSelectedLocation(e.target.value)}
         >
@@ -172,7 +172,7 @@ function CardForReview({ user, onLogin }) {
         </select>
 
         <select
-          className="p-2 rounded border bg-[#F5F5DC] border-[#6B8E23]"
+          className="p-2.5 rounded-lg border border-gray-300 bg-white text-gray-800 focus:outline-none focus:ring-2 focus:ring-[#E63946] focus:border-transparent shadow-sm"
           value={selectedRatings}
           onChange={(e) => setSelectedRatings(e.target.value)}
         >
@@ -187,7 +187,7 @@ function CardForReview({ user, onLogin }) {
         </select>
 
         <select
-          className="p-2 rounded border bg-[#F5F5DC] border-[#6B8E23]"
+          className="p-2.5 rounded-lg border border-gray-300 bg-white text-gray-800 focus:outline-none focus:ring-2 focus:ring-[#E63946] focus:border-transparent shadow-sm"
           value={selectedFood}
           onChange={(e) => setSelectedFood(e.target.value)}
         >
@@ -198,7 +198,8 @@ function CardForReview({ user, onLogin }) {
             </option>
           ))}
         </select>
-        <div className="flex justify-center ml-2">
+
+        <div className="flex justify-center w-full sm:w-auto">
           <Button
             onClick={async () => {
               if (!user) {
@@ -207,27 +208,29 @@ function CardForReview({ user, onLogin }) {
               }
               setOpenModal(true);
             }}
-            className="!bg-[#E63946] text-white hover:!bg-[#f87575] px-6 py-2 rounded-md font-medium"
+            className="w-full justify-center !bg-[#E63946] hover:!bg-[#D43440] focus:!ring-4 focus:!ring-[#E63946]/50 transition-colors duration-200 ease-in-out"
+            size="xl"
+            pill
           >
             Add Review
           </Button>
         </div>
       </div>
+
       {user ? (
         <>
           <Modal show={openModal} size="md" onClose={onCloseModal} popup>
-            <ModalHeader className="bg-[#6B8E23] rounded-t-md text-white px-6 py-3">
-              <span className="text-lg font-semibold">
+            <ModalHeader className="!bg-gray-300 rounded-t-xl !text-[#3333]  px-6 py-4 border-b border-gray-200">
+              <span className="text-lg text-[#333] font-semibold">
                 Add Your Food Review
               </span>
             </ModalHeader>
-            <ModalBody className="bg-[#F5F5DC] px-6 py-6 rounded-b-md">
+            <ModalBody className="!bg-gray-100 px-6 py-6 rounded-b-xl">
               <div className="space-y-5">
                 {[
                   { label: "Food Item", value: food, set: setFood },
                   { label: "Food Review", value: review, set: setReview },
                   { label: "Rating (1–5)", value: ratings, set: setRatings },
-                  // { label: "Location", value: location, set: setLocation },
                   {
                     label: "Restaurant",
                     value: restaurant,
@@ -235,39 +238,50 @@ function CardForReview({ user, onLogin }) {
                   },
                 ].map(({ label, value, set }, idx) => (
                   <div key={idx}>
-                    <label className="block text-sm font-medium text-[#333] mb-1">
-                      {label}
-                    </label>
+                    <Label
+                      htmlFor={label.replace(/\s/g, "")}
+                      value={label}
+                      className="block text-sm font-medium text-gray-700 mb-1"
+                    />
                     <input
                       value={value}
                       onChange={(e) => set(e.target.value)}
                       placeholder={`Enter ${label.toLowerCase()}`}
                       required
-                      className="w-full px-4 py-2 border border-[#6B8E23] rounded-md shadow-sm placeholder-gray-500 text-gray-800 focus:outline-none focus:ring-2 focus:ring-[#6B8E23]"
+                      className="w-full p-3 !rounded-lg border !border-gray-300 focus:!ring-2 focus:!ring-[#E63946] focus:!border-transparent text-gray-800 placeholder-gray-500"
                     />
                   </div>
                 ))}
-                <label className="block text-sm font-medium text-[#333] mb-1">
-                  Location
-                </label>
-                <LocationInput
-                  className="w-full px-4 py-2 !bg-white border border-[#6B8E23] rounded-md shadow-sm"
-                  onSelect={handleLocationSelect}
-                ></LocationInput>
                 <div>
-                  <label className="block text-sm font-medium text-[#333] mb-1">
-                    Upload Image (Optional)
-                  </label>
+                  <Label
+                    htmlFor="locationInput"
+                    value="Location"
+                    className="block text-sm font-medium text-gray-700 mb-1"
+                  />
+                  <LocationInput
+                    className="w-full !rounded-lg !border-gray-300 focus:!ring-2 focus:!ring-[#E63946] focus:!border-transparent text-gray-800 placeholder-gray-500"
+                    onSelect={handleLocationSelect}
+                  />
+                </div>
+                <div>
+                  <Label
+                    htmlFor="imageUpload"
+                    value="Upload Image (Optional)"
+                    className="block text-sm font-medium text-gray-700 mb-1"
+                  />
                   <input
+                    id="imageUpload"
                     type="file"
                     accept="image/*"
                     onChange={(e) => setImageFile(e.target.files[0])}
-                    className="w-full px-4 py-2 bg-white border border-[#6B8E23] rounded-md shadow-sm"
+                    className="w-full px-4 py-2 bg-white border border-gray-300 rounded-lg shadow-sm text-gray-800 focus:outline-none focus:ring-2 focus:ring-[#E63946]"
                   />
                 </div>
                 <Button
                   onClick={addReview}
-                  className="w-full bg-[#FF7F3F] hover:bg-[#e76e2a] text-white font-semibold py-2 rounded-md transition duration-200"
+                  className="w-full justify-center !bg-[#E63946] hover:!bg-[#D43440] focus:!ring-4 focus:!ring-[#E63946]/50 transition-colors duration-200 ease-in-out"
+                  size="xl"
+                  pill
                 >
                   Submit Review
                 </Button>
@@ -276,9 +290,8 @@ function CardForReview({ user, onLogin }) {
           </Modal>
         </>
       ) : (
-        <div className="text-center text-gray-500 mb-6">
-          <p className="text-[#6B8E23]">
-            {" "}
+        <div className="text-center text-gray-500 mb-6 p-4 rounded-lg bg-gray-100 shadow-sm">
+          <p className="text-gray-700 font-medium">
             Please log in / sign in to add a review.
           </p>
         </div>
@@ -311,39 +324,66 @@ function CardForReview({ user, onLogin }) {
             filtered.map((i) => (
               <Card
                 key={i._id}
-                className="!bg-[#f5f5dc] rounded-xl border-none shadow-lg hover:shadow-4xl transition-shadow duration-300 ease-in-out overflow-hidden font-sec"
+                className="!bg-white rounded-xl font-sec border border-gray-100 shadow-md hover:shadow-xl transition-shadow duration-300 ease-in-out overflow-hidden"
               >
                 <img
-                  className="w-full h-48 object-cover rounded-[10px]"
+                  className="w-full h-48 object-cover rounded-lg transform hover:scale-[1.02] transition-transform duration-300 ease-in-out"
                   src={
                     i.image ||
-                    "https://dummyimage.com/300x200/cccccc/000000&text=No+Image"
+                    "https://placehold.co/300x200/E5E7EB/4B5563?text=No+Image"
                   }
                   alt={i.food}
                 />
 
                 <div className="p-4 space-y-2">
                   <div className="flex justify-between items-center">
-                    <h3 className="text-lg font-bold text-[#333] truncate">
+                    <h3 className="text-lg font-bold text-gray-800 truncate">
                       {i.food}
                     </h3>
-                    <span className="text-sm bg-green-100 text-green-700 px-2 py-0.5 rounded-full">
-                      ⭐ {i.ratings}/5
+
+                    <span className="text-sm bg-yellow-100 text-yellow-800 px-2 py-0.5 rounded-full font-semibold flex items-center gap-1">
+                      <svg
+                        className="w-4 h-4 text-yellow-500"
+                        fill="currentColor"
+                        viewBox="0 0 20 20"
+                        xmlns="http://www.w3.org/2000/svg"
+                      >
+                        <path d="M9.049 2.927c.3-.921 1.603-.921 1.902 0l1.07 3.292a1 1 0 00.95.69h3.462c.969 0 1.371 1.24.588 1.81l-2.8 2.034a1 1 0 00-.364 1.118l1.07 3.292c.3.921-.755 1.688-1.538 1.118l-2.8-2.034a1 1 0 00-1.175 0l-2.8 2.034c-.783.57-1.838-.197-1.538-1.118l1.07-3.292a1 1 0 00-.364-1.118L2.98 8.72c-.783-.57-.38-1.81.588-1.81h3.462a1 1 0 00.95-.69l1.07-3.292z"></path>
+                      </svg>
+                      {i.ratings}/5
                     </span>
                   </div>
 
-                  <p className="text-sm text-gray-600 ">"{i.review}"</p>
+                  <p className="text-sm text-gray-700 leading-relaxed line-clamp-3">
+                    "{i.review}"
+                  </p>
 
-                  <div className="flex justify-between text-xs text-gray-500">
-                    <span>📍 {i.location}</span>
-                    <span className="italic">{i.restaurant}</span>
+                  <div className="flex justify-between text-xs text-gray-500 mt-2">
+                    <span className="flex items-center gap-1">
+                      <svg
+                        className="w-3 h-3 text-gray-400"
+                        fill="currentColor"
+                        viewBox="0 0 20 20"
+                        xmlns="http://www.w3.org/2000/svg"
+                      >
+                        <path
+                          fillRule="evenodd"
+                          d="M5.05 4.05a7 7 0 119.9 9.9L10 18.9l-4.95-4.95a7 7 0 010-9.9zM10 11a2 2 0 100-4 2 2 0 000 4z"
+                          clipRule="evenodd"
+                        ></path>
+                      </svg>
+                      {i.location}
+                    </span>
+                    <span className="italic font-medium text-gray-600">
+                      {i.restaurant}
+                    </span>
                   </div>
 
-                  <div className="flex justify-between items-center mt-2">
-                    <p className="text-[11px] text-gray-400">
+                  <div className="flex justify-between items-center mt-2 pt-2 border-t border-gray-100">
+                    <p className="text-xs text-gray-400">
                       {new Date(i.createdAt).toLocaleDateString()}
                     </p>
-                    <p className="text-sm text-gray-700 italic">
+                    <p className="text-sm text-gray-600 italic">
                       - {i.user?.name || "Anonymous"}
                     </p>
                   </div>

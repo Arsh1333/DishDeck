@@ -24,24 +24,28 @@ const Auth = function ({ user, onLogin }) {
   };
 
   return (
-    <header className="bg-[#f5f5dc] font-sec shadow-md border-b border-[#a4b884] px-4 py-3 opacity-0 animate-fadeInUp">
+    <header className="bg-white font-sec shadow-sm border-b border-gray-200 px-4 py-3 opacity-0 animate-fadeInUp">
       <div className="flex flex-col sm:flex-row justify-between items-center gap-2">
-        <div className=" text-base sm:text-lg font-semibold font-sec flex items-center gap-1">
+        <div className="text-base sm:text-lg font-semibold text-gray-700 flex items-center gap-1">
           <span>Welcome,&nbsp;</span>
-          <span className="font-bold">{user?.displayName || "Guest"}</span>
+          <span className="font-bold text-gray-800">
+            {user?.displayName || "Guest"}
+          </span>
         </div>
-
         <div className="flex items-center gap-3 flex-wrap justify-center sm:justify-end">
           {user ? (
             <>
-              <a href="/profile">
+              <a
+                href="/profile"
+                className="text-gray-600 hover:text-gray-800 transition-colors duration-200"
+              >
                 <svg
                   xmlns="http://www.w3.org/2000/svg"
                   fill="none"
                   viewBox="0 0 24 24"
                   strokeWidth={1.5}
                   stroke="currentColor"
-                  className="size-10"
+                  className="w-8 h-8"
                 >
                   <path
                     strokeLinecap="round"
@@ -50,20 +54,27 @@ const Auth = function ({ user, onLogin }) {
                   />
                 </svg>
               </a>
-              <button
+
+              <Button
                 onClick={logout}
-                className="bg-[#E63946] hover:bg-[#c12f3b] text-white px-3 py-1.5 rounded-md font-medium text-sm sm:text-base"
+                color="light"
+                size="sm"
+                pill
+                className="!text-gray-700 !bg-white hover:!bg-gray-100 focus:!ring-2 focus:!ring-gray-300 transition-colors duration-200 ease-in-out"
               >
                 Logout
-              </button>
+              </Button>
             </>
           ) : (
-            <button
+            <Button
               onClick={login}
-              className="bg-[#6B8E23] hover:bg-[#587f1c] text-white px-4 py-2 rounded-md font-semibold text-sm sm:text-base transition"
+              color="gray"
+              size="md"
+              pill
+              className="!text-white hover:!bg-gray-400 focus:!ring-2 focus:!ring-gray-300 transition-colors duration-200 ease-in-out"
             >
               🔐 Sign in with Google
-            </button>
+            </Button>
           )}
         </div>
       </div>
