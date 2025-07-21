@@ -80,7 +80,7 @@ function Map() {
 
         if (map) {
           map.setCenter([position.lng, position.lat]);
-          map.setZoom(16);
+          map.setZoom(18);
 
           if (currentMarker) {
             currentMarker.remove();
