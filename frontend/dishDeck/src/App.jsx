@@ -14,6 +14,7 @@ function App() {
     return stored ? JSON.parse(stored) : null;
   });
 
+  // const [locationForMap, setLocationForMap] = useState({});
   return (
     <Router>
       <Routes>

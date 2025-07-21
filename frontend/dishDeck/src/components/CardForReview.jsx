@@ -11,6 +11,7 @@ import {
 } from "flowbite-react";
 import LocationInput from "./LocationInput";
 import { auth, provider, signInWithPopup, signOut } from "../firebase.js";
+import { Link } from "react-router-dom";
 
 function CardForReview({ user, onLogin }) {
   const [data, setData] = useState([]);
@@ -340,7 +341,6 @@ function CardForReview({ user, onLogin }) {
                     <h3 className="text-lg font-bold text-gray-800 truncate">
                       {i.food}
                     </h3>
-
                     <span className="text-sm bg-yellow-100 text-yellow-800 px-2 py-0.5 rounded-full font-semibold flex items-center gap-1">
                       <svg
                         className="w-4 h-4 text-yellow-500"
@@ -374,9 +374,55 @@ function CardForReview({ user, onLogin }) {
                       </svg>
                       {i.location}
                     </span>
+
                     <span className="italic font-medium text-gray-600">
                       {i.restaurant}
                     </span>
+                    {/* <button>
+                      {" "}
+                      <a href="/map">
+                        <svg
+                          xmlns="http://www.w3.org/2000/svg"
+                          fill="none"
+                          viewBox="0 0 24 24"
+                          strokeWidth={1.5}
+                          stroke="currentColor"
+                          className="size-3"
+                        >
+                          <path
+                            strokeLinecap="round"
+                            strokeLinejoin="round"
+                            d="m4.5 19.5 15-15m0 0H8.25m11.25 0v11.25"
+                          />
+                        </svg>
+                      </a>
+                    </button> */}
+                    <Link
+                      to="/map"
+                      state={{
+                        location: i.location,
+                        restaurant: i.restaurant,
+                        food: i.food,
+                      }}
+                      className="block"
+                    >
+                      <button className="p-1 rounded-full hover:bg-gray-100 transition-colors duration-200">
+                        <svg
+                          xmlns="http://www.w3.org/2000/svg"
+                          fill="none"
+                          viewBox="0 0 24 24"
+                          strokeWidth={1.5}
+                          stroke="currentColor"
+                          className="size-4 text-gray-600 hover:text-blue-500"
+                        >
+                          <path
+                            strokeLinecap="round"
+                            strokeLinejoin="round"
+                            d="m4.5 19.5 15-15m0 0H8.25m11.25 0v11.25"
+                          />
+                        </svg>
+                      </button>
+                    </Link>
                   </div>
 
                   <div className="flex justify-between items-center mt-2 pt-2 border-t border-gray-100">
