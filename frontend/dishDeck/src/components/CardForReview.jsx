@@ -128,7 +128,7 @@ function CardForReview({ user, onLogin }) {
       const data = await res.json();
       return {
         imageUrl: data.secure_url,
-        public_id: data.public_id, // Save this
+        public_id: data.public_id,
       };
       return data.secure_url;
     } catch (err) {

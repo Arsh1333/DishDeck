@@ -6,7 +6,7 @@ import UserProfile from "./components/UserProfile.jsx";
 import Auth from "./components/Auth.jsx";
 import LandingPage from "./components/LandingPage.jsx";
 import About from "./components/About.jsx";
-import "leaflet/dist/leaflet.css";
+import Map from "./components/Map.jsx";
 
 function App() {
   const [user, setUser] = useState(() => {
@@ -41,6 +41,7 @@ function App() {
           element={<LandingPage user={user} onLogin={setUser} />}
         />
         <Route path="/about" element={<About />} />
+        <Route path="/map" element={<Map />} />
       </Routes>
     </Router>
   );

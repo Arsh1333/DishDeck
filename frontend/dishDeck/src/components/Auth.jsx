@@ -28,7 +28,7 @@ const Auth = function ({ user, onLogin }) {
       <div className="flex flex-col sm:flex-row justify-between items-center gap-2">
         <div className="text-base sm:text-lg font-semibold text-gray-700 flex items-center gap-1">
           <span>Welcome,&nbsp;</span>
-          <span className="font-bold text-gray-800">
+          <span className="font-bold text-[#E63946]">
             {user?.displayName || "Guest"}
           </span>
         </div>
