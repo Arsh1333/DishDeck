@@ -34,7 +34,6 @@ const addCard = async (req, res) => {
       user,
       image,
       public_id,
-      likes: likes,
     });
     await newCard.save();
     console.log("New Card Added");
@@ -76,4 +75,5 @@ const deleteCard = async (req, res) => {
     res.status(500).json({ message: "Internal server error" });
   }
 };
+
 export { getCard, addCard, deleteCard };

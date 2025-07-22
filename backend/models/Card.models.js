@@ -22,10 +22,6 @@ const cardSchema = new Schema(
       type: String,
       required: true,
     },
-    likes: {
-      type: Number,
-      default: 0,
-    },
     user: {
       uid: String,
       name: String,
