@@ -26,6 +26,7 @@ function CardForReview({ user, onLogin }) {
   const [selectedFood, setSelectedFood] = useState("");
   const [selectedRatings, setSelectedRatings] = useState("");
   const [imageFile, setImageFile] = useState(null);
+  const [countLikes, setCountLikes] = useState(0);
 
   const getReview = async () => {
     try {
@@ -66,17 +67,6 @@ function CardForReview({ user, onLogin }) {
       alert("Please enter a valid rating between 1 and 5.");
       return;
     }
-    // let token = localStorage.getItem("user", user);
-    // console.log(token);
-    // if (!token) {
-    //   console.log("No token found");
-    //   console.log("No token found");
-    //   alert("Please sign in to post a review.");
-    //   return; // Stop further execution
-    // }
-    // if (!user) {
-    //   console.log("User not found");
-    // }
     try {
       const res = await axios.post(
         `https://dishdeck-gtdd.onrender.com/card/postCard`,
@@ -92,6 +82,7 @@ function CardForReview({ user, onLogin }) {
           },
           image: imageUrl,
           public_id,
+          likes: countLikes || 0,
         }
       );
       // await getReview();
@@ -147,6 +138,10 @@ function CardForReview({ user, onLogin }) {
     } catch (error) {
       console.log("Error while logging in", error);
     }
+  };
+
+  const handleLikes = () => {
+    setCountLikes(countLikes + 1);
   };
   return (
     <div className="min-h-screen bg-gray-50 font-sec px-4 py-8 sm:px-6 lg:px-8">
@@ -327,14 +322,37 @@ function CardForReview({ user, onLogin }) {
                 key={i._id}
                 className="!bg-white rounded-xl font-sec border border-gray-100 shadow-md hover:shadow-xl transition-shadow duration-300 ease-in-out overflow-hidden"
               >
-                <img
-                  className="w-full h-48 object-cover rounded-lg transform hover:scale-[1.02] transition-transform duration-300 ease-in-out"
-                  src={
-                    i.image ||
-                    "https://placehold.co/300x200/E5E7EB/4B5563?text=No+Image"
-                  }
-                  alt={i.food}
-                />
+                <div className="relative">
+                  <img
+                    className="w-full h-48 object-cover rounded-lg transform hover:scale-[1.02] transition-transform duration-300 ease-in-out"
+                    src={
+                      i.image ||
+                      "https://placehold.co/300x200/E5E7EB/4B5563?text=No+Image"
+                    }
+                    alt={i.food}
+                  />
+
+                  <button
+                    onClick={handleLikes}
+                    className="absolute top-3 right-3 p-2 bg-white bg-opacity-80 rounded-full shadow-md hover:bg-red-500 hover:text-white transition-colors duration-300"
+                  >
+                    <svg
+                      xmlns="http://www.w3.org/2000/svg"
+                      fill="none"
+                      viewBox="0 0 24 24"
+                      strokeWidth={1.5}
+                      stroke="currentColor"
+                      className="size-6 text-red-500 hover:text-white"
+                    >
+                      <path
+                        strokeLinecap="round"
+                        strokeLinejoin="round"
+                        d="M21 8.25c0-2.485-2.099-4.5-4.688-4.5-1.935 0-3.597 1.126-4.312 2.733-.715-1.607-2.377-2.733-4.313-2.733C5.1 3.75 3 5.765 3 8.25c0 7.22 9 12 9 12s9-4.78 9-12Z"
+                      />
+                    </svg>
+                    <p className="text-red-500">{countLikes}</p>
+                  </button>
+                </div>
 
                 <div className="p-4 space-y-2">
                   <div className="flex justify-between items-center">
@@ -378,25 +396,7 @@ function CardForReview({ user, onLogin }) {
                     <span className="italic font-medium text-gray-600">
                       {i.restaurant}
                     </span>
-                    {/* <button>
-                      {" "}
-                      <a href="/map">
-                        <svg
-                          xmlns="http://www.w3.org/2000/svg"
-                          fill="none"
-                          viewBox="0 0 24 24"
-                          strokeWidth={1.5}
-                          stroke="currentColor"
-                          className="size-3"
-                        >
-                          <path
-                            strokeLinecap="round"
-                            strokeLinejoin="round"
-                            d="m4.5 19.5 15-15m0 0H8.25m11.25 0v11.25"
-                          />
-                        </svg>
-                      </a>
-                    </button> */}
+
                     <Link
                       to="/map"
                       state={{

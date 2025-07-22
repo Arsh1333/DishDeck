@@ -23,6 +23,7 @@ const addCard = async (req, res) => {
       user,
       image,
       public_id,
+      likes,
     } = req.body;
     const newCard = await Card({
       food,
@@ -33,9 +34,11 @@ const addCard = async (req, res) => {
       user,
       image,
       public_id,
+      likes: likes,
     });
-    newCard.save();
+    await newCard.save();
     console.log("New Card Added");
+    console.log("Posted Review Response: ", res.data);
     res.status(201).json(newCard);
   } catch (error) {
     console.log("Error while adding a card", error);
