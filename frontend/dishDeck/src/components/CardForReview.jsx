@@ -12,6 +12,7 @@ import {
 import LocationInput from "./LocationInput";
 import { auth, provider, signInWithPopup, signOut } from "../firebase.js";
 import { Link } from "react-router-dom";
+import { pipeline } from "@xenova/transformers";
 
 function CardForReview({ user, onLogin }) {
   const [data, setData] = useState([]);
@@ -26,6 +27,7 @@ function CardForReview({ user, onLogin }) {
   const [selectedFood, setSelectedFood] = useState("");
   const [selectedRatings, setSelectedRatings] = useState("");
   const [imageFile, setImageFile] = useState(null);
+  const [classifier, setClassifier] = useState(null);
 
   const getReview = async () => {
     try {
@@ -138,9 +140,15 @@ function CardForReview({ user, onLogin }) {
     }
   };
 
-  const handleLikes = () => {
-    setCountLikes(countLikes + 1);
-  };
+  useEffect(() => {
+    const loadModel = async () => {
+      const loadClassifier = await pipeline("sentiment-analysis");
+      setClassifier(loadClassifier);
+      console.log(loadClassifier);
+      console.log(classifier);
+    };
+    loadModel();
+  }, []);
   return (
     <div className="min-h-screen bg-gray-50 font-sec px-4 py-8 sm:px-6 lg:px-8">
       <div className="bg-white p-4 sm:p-6 rounded-xl font-sec shadow-lg mb-8 flex flex-wrap gap-4 justify-center items-center opacity-0 translate-y-5 animate-fadeInUp w-full">
@@ -383,14 +391,14 @@ function CardForReview({ user, onLogin }) {
                       }}
                       className="block"
                     >
-                      <button className="p-1 rounded-full hover:bg-gray-100 transition-colors duration-200">
+                      <button className="p-1 rounded-full border border-red-700 hover:bg-gray-100 transition-colors duration-200">
                         <svg
                           xmlns="http://www.w3.org/2000/svg"
                           fill="none"
                           viewBox="0 0 24 24"
                           strokeWidth={1.5}
                           stroke="currentColor"
-                          className="size-4 text-gray-600 hover:text-blue-500"
+                          className="size-4 text-red-400 hover:text-blue-500"
                         >
                           <path
                             strokeLinecap="round"
@@ -399,6 +407,7 @@ function CardForReview({ user, onLogin }) {
                           />
                         </svg>
                       </button>
+                      <p className="text-red-500">map</p>
                     </Link>
                   </div>
 
