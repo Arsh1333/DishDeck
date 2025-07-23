@@ -12,7 +12,6 @@ import {
 import LocationInput from "./LocationInput";
 import { auth, provider, signInWithPopup, signOut } from "../firebase.js";
 import { Link } from "react-router-dom";
-import { pipeline } from "@xenova/transformers";
 
 function CardForReview({ user, onLogin }) {
   const [data, setData] = useState([]);
@@ -27,7 +26,6 @@ function CardForReview({ user, onLogin }) {
   const [selectedFood, setSelectedFood] = useState("");
   const [selectedRatings, setSelectedRatings] = useState("");
   const [imageFile, setImageFile] = useState(null);
-  const [classifier, setClassifier] = useState(null);
 
   const getReview = async () => {
     try {
@@ -140,15 +138,6 @@ function CardForReview({ user, onLogin }) {
     }
   };
 
-  useEffect(() => {
-    const loadModel = async () => {
-      const loadClassifier = await pipeline("sentiment-analysis");
-      setClassifier(loadClassifier);
-      console.log(loadClassifier);
-      console.log(classifier);
-    };
-    loadModel();
-  }, []);
   return (
     <div className="min-h-screen bg-gray-50 font-sec px-4 py-8 sm:px-6 lg:px-8">
       <div className="bg-white p-4 sm:p-6 rounded-xl font-sec shadow-lg mb-8 flex flex-wrap gap-4 justify-center items-center opacity-0 translate-y-5 animate-fadeInUp w-full">
@@ -424,7 +413,7 @@ function CardForReview({ user, onLogin }) {
             ))
           ) : (
             <p className="col-span-full text-center text-gray-600 text-sm mt-10">
-              ❌ No results found for your search.(404)
+              No results found for your search.(404)
             </p>
           );
         })()}

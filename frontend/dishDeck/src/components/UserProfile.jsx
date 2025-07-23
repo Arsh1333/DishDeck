@@ -14,7 +14,7 @@ const UserProfile = ({ user }) => {
       const filteredReview = all.filter(
         (review) => review.user?.uid === user?.uid
       );
-      console.log(filteredReview);
+      // console.log(filteredReview);
       setMyReviews(filteredReview);
     } catch (error) {
       console.log("Error in Showing your reviews", error);
