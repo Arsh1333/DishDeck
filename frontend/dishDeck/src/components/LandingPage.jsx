@@ -27,9 +27,20 @@ function LandingPage({ user, onLogin }) {
               </Button>
             </Link>
 
+            <Link to="/mood">
+              <Button
+                color="light" // Use a secondary style for this button
+                className="!text-[#E63946] w-full !border-[#E63946] hover:!bg-[#FEE2E2] focus:!ring-4 focus:!ring-[#E63946]/50 transition-colors duration-200 ease-in-out"
+                size="lg"
+                pill
+              >
+                Mood Food AI
+              </Button>
+            </Link>
+
             <Link to="/about" className="w-full sm:w-auto">
               <Button
-                className="w-full justify-center !bg-transparent !border !border-gray-300 hover:!bg-gray-100 focus:!ring-4 focus:!ring-gray-300/50 text-gray-700 transition-colors duration-200 ease-in-out"
+                className="w-full justify-center !bg-transparent !border !border-red-400 hover:!bg-gray-100 focus:!ring-4 focus:!ring-gray-300/50 text-gray-700 transition-colors duration-200 ease-in-out"
                 size="xl"
                 pill
               >
