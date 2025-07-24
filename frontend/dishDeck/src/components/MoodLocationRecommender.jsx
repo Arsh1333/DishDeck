@@ -24,6 +24,7 @@ function MoodLocationRecommender() {
         setError("No suggestions found for your mood. Try a different one!");
       } else {
         setSuggestions(dishes);
+        console.log(dishes);
       }
     } catch (err) {
       console.error(err);

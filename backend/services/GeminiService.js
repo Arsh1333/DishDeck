@@ -32,7 +32,7 @@ const getRecommendationsFromGemini = async (mood) => {
   }
 
   const prompt = `Suggest 3 food dishes for someone feeling ${mood}. 
-Format your response as JSON with a "dishes" array where each dish has: name, description on why you suggested the particular dish or food based in mood and how it will enhance ones mood or help user .
+Format your response as JSON with a "dishes" array where each dish has: name, description and region of origin for the food you suggest on why you suggested the particular dish or food based in mood and how it will enhance ones mood or help user .
 Suggest at least one indain food
 Also make description more personalliezd
 Respond only with valid JSON and no markdown or backticks.`;
