@@ -7,6 +7,7 @@ import Auth from "./components/Auth.jsx";
 import LandingPage from "./components/LandingPage.jsx";
 import About from "./components/About.jsx";
 import Map from "./components/Map.jsx";
+import MoodLocationRecommender from "./components/MoodLocationRecommender.jsx";
 
 function App() {
   const [user, setUser] = useState(() => {
@@ -43,6 +44,7 @@ function App() {
         />
         <Route path="/about" element={<About />} />
         <Route path="/map" element={<Map />} />
+        <Route path="/mood" element={<MoodLocationRecommender />} />
       </Routes>
     </Router>
   );
