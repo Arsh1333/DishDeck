@@ -31,9 +31,9 @@ const getRecommendationsFromGemini = async (mood, location) => {
     throw new Error("Mood or location is missing");
   }
 
-  const prompt = `Suggest 3 food dishes and specific restaurants near ${location} that serve them for someone feeling ${mood}. 
-Format your response as JSON with a "dishes" array where each dish has: name, description and recommended_restaurant (with name and address) .
-Please suggest restaurant based on 2025 review data from google reviews or zomato reviews , the restaurant must be listed on google maps and location must match the location you give in array
+  const prompt = `Suggest 3 food dishes for someone feeling ${mood}. 
+Format your response as JSON with a "dishes" array where each dish has: name, description on why you suggested this .
+Please suggest restaurant based on 2025 review data from google reviews or zomato reviews , the restaurant must be listed on google maps.
 Respond only with valid JSON and no markdown or backticks.`;
 
   const response = await axios.post(
