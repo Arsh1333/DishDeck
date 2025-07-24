@@ -3,7 +3,7 @@ import "dotenv/config";
 
 const key = process.env.GEMINI_API_KEY;
 
-const getRecommendationsFromGemini = async (mood, location) => {
+const getRecommendationsFromGemini = async (mood) => {
   //   if (!mood || !location) {
   //     console.log("No mood or location detected");
   //   }
@@ -27,13 +27,13 @@ const getRecommendationsFromGemini = async (mood, location) => {
   //     throw new Error("Invalid response from Gemini");
   //   }
 
-  if (!mood || !location) {
-    throw new Error("Mood or location is missing");
+  if (!mood) {
+    throw new Error("Mood is missing");
   }
 
   const prompt = `Suggest 3 food dishes for someone feeling ${mood}. 
-Format your response as JSON with a "dishes" array where each dish has: name, description on why you suggested this .
-Please suggest restaurant based on 2025 review data from google reviews or zomato reviews , the restaurant must be listed on google maps.
+Format your response as JSON with a "dishes" array where each dish has: name, description on why you suggested the particular dish or food based in mood and how it will enhance ones mood or help user .
+Also make description more personalliezd
 Respond only with valid JSON and no markdown or backticks.`;
 
   const response = await axios.post(

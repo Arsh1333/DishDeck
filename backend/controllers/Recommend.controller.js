@@ -1,9 +1,9 @@
 import { getRecommendationsFromGemini } from "../services/GeminiService.js";
 
 const recommend = async (req, res) => {
-  const { mood, location } = req.body;
+  const { mood } = req.body;
   try {
-    const recommendations = await getRecommendationsFromGemini(mood, location);
+    const recommendations = await getRecommendationsFromGemini(mood);
     res.json({ recommendations });
   } catch (err) {
     res.status(500).json({ error: "Failed to fetch recommendations" });
