@@ -103,13 +103,10 @@ function MoodLocationRecommender() {
                     {dish.description}
                   </p>
                   <p className="text-gray-600 text-xs italic mb-1">
-                    Region: <span className="font-semibold">{dish.region}</span>
-                  </p>
-                  <p className="text-gray-700 text-sm mt-2 p-3 bg-white rounded-md border border-gray-100">
-                    <span className="font-medium text-[#E63946]">
-                      Why this dish:
-                    </span>{" "}
-                    {dish.why_happy}
+                    Region:{" "}
+                    <span className="font-semibold">
+                      {dish.region_of_origin}
+                    </span>
                   </p>
                 </li>
               ))}
