@@ -1,16 +1,27 @@
 import { useEffect, useState } from "react";
 import axios from "axios";
-import { Card, Button } from "flowbite-react";
+import {
+  Card,
+  Button,
+  Label,
+  Modal,
+  ModalBody,
+  ModalHeader,
+} from "flowbite-react";
+import LocationInput from "./LocationInput";
 
 const UserProfile = ({ user }) => {
   const [myReviews, setMyReviews] = useState([]);
+  const [openModal, setOpenModal] = useState(false);
+  const [location, setLocation] = useState("");
+
   const fetchUserReview = async () => {
     try {
       const res = await axios.get(
         `https://dishdeck-gtdd.onrender.com/card/getCard`
       );
       const all = res.data;
-      // console.log(all);
+      console.log(all);
       const filteredReview = all.filter(
         (review) => review.user?.uid === user?.uid
       );
@@ -37,6 +48,23 @@ const UserProfile = ({ user }) => {
     }
   };
 
+  const addWishlist = async () => {
+    try {
+      setOpenModal(true);
+    } catch (error) {
+      console.log(error);
+    }
+  };
+  const onCloseModal = () => {
+    setOpenModal(false);
+  };
+  const handleLocationSelect = (place) => {
+    const fullPlace = `${place.properties.name}, ${
+      place.properties.city || ""
+    }, ${place.properties.country || ""}`;
+    setLocation(fullPlace);
+  };
+
   return (
     <div className="min-h-screen font-sans px-4 py-8 sm:px-6 lg:px-8 bg-gray-50">
       <div className="bg-white p-6 sm:p-8 rounded-xl shadow-lg mb-8 flex flex-col sm:flex-row items-center justify-between gap-4">
@@ -48,16 +76,80 @@ const UserProfile = ({ user }) => {
           />
           <div>
             <h1 className="text-2xl sm:text-3xl font-extrabold text-gray-800 tracking-tight">
-              {user?.displayName}'s Reviews
+              {user?.displayName}'s Reviews{" "}
             </h1>
-
             <p className="text-base text-gray-600 mt-1">
               You’ve posted {myReviews.length} review
               {myReviews.length !== 1 ? "s" : ""}
             </p>
+            <span className="ml-2">
+              <button
+                onClick={addWishlist}
+                className="bg-green-400 p-4 mt-2 rounded-4xl font-sec"
+              >
+                Your Wishlist
+              </button>
+            </span>{" "}
           </div>
         </div>
       </div>
+
+      {user ? (
+        <Modal show={openModal} size="md" onClose={onCloseModal} popup>
+          <ModalHeader className="!bg-gray-300 rounded-t-xl !text-[#3333]  px-6 py-4 border-b border-gray-200">
+            <span className="text-lg text-[#333] font-semibold">
+              Add to Wishlist
+            </span>
+          </ModalHeader>
+          <ModalBody className="!bg-gray-100 px-6 py-6 rounded-b-xl">
+            <div className="space-y-5">
+              <div>
+                <Label
+                  htmlFor="locationInput"
+                  value="Location"
+                  className="block text-sm font-medium text-gray-700 mb-1"
+                />
+                <LocationInput
+                  className="w-full !rounded-lg !border-gray-300 focus:!ring-2 focus:!ring-[#E63946] focus:!border-transparent text-gray-800 placeholder-gray-500"
+                  onSelect={handleLocationSelect}
+                />
+                <Label
+                  htmlFor="foodInput"
+                  value="Food"
+                  className="block text-sm font-medium text-gray-700 mb-1"
+                />
+                <input
+                  placeholder="Enter Food"
+                  className="w-full !rounded-lg border p-2 mt-2 !border-gray-300 focus:!ring-2 focus:!ring-[#E63946] focus:!border-transparent text-gray-800 placeholder-gray-500"
+                />
+                <Label
+                  htmlFor="restaurantInput"
+                  value="Restaurant"
+                  className="block text-sm font-medium text-gray-700 mb-1"
+                />
+                <input
+                  placeholder="Enter Restaurant"
+                  className="w-full !rounded-lg border p-2 mt-2 !border-gray-300 focus:!ring-2 focus:!ring-[#E63946] focus:!border-transparent text-gray-800 placeholder-gray-500"
+                />
+              </div>
+              <Button
+                onClick={addWishlist}
+                className="w-full justify-center !bg-[#E63946] hover:!bg-[#D43440] focus:!ring-4 focus:!ring-[#E63946]/50 transition-colors duration-200 ease-in-out"
+                size="xl"
+                pill
+              >
+                Submit Wish
+              </Button>
+            </div>
+          </ModalBody>
+        </Modal>
+      ) : (
+        <div className="text-center text-gray-500 mb-6 p-4 rounded-lg bg-gray-100 shadow-sm">
+          <p className="text-gray-700 font-medium">
+            Please log in / sign in to add a review.
+          </p>
+        </div>
+      )}
 
       {myReviews.length > 0 ? (
         <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-6">

@@ -23,7 +23,6 @@ const addCard = async (req, res) => {
       user,
       image,
       public_id,
-      likes,
     } = req.body;
     const newCard = await Card({
       food,

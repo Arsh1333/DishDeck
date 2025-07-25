@@ -2,6 +2,7 @@ import express from "express";
 import cors from "cors";
 import "dotenv/config";
 import cardRouter from "./routes/Card.routes.js";
+import wishRouter from "./routes/Wish.routes.js";
 import connectDb from "./db/connectDb.js";
 import { recommendRouter } from "./routes/Recommend.routes.js";
 
@@ -13,6 +14,7 @@ app.use(express.json());
 app.use(cors({ origin: process.env.CORS_ORIGIN }));
 app.use("/card", cardRouter);
 app.use("/ask", recommendRouter);
+app.use("/wish", wishRouter);
 
 connectDb()
   .then(() => {
