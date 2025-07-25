@@ -14,6 +14,8 @@ const UserProfile = ({ user }) => {
   const [myReviews, setMyReviews] = useState([]);
   const [openModal, setOpenModal] = useState(false);
   const [location, setLocation] = useState("");
+  const [food, setFood] = useState("");
+  const [restaurant, setRestaurant] = useState("");
 
   const fetchUserReview = async () => {
     try {
@@ -21,7 +23,7 @@ const UserProfile = ({ user }) => {
         `https://dishdeck-gtdd.onrender.com/card/getCard`
       );
       const all = res.data;
-      console.log(all);
+      // console.log(all);
       const filteredReview = all.filter(
         (review) => review.user?.uid === user?.uid
       );
@@ -50,6 +52,10 @@ const UserProfile = ({ user }) => {
 
   const addWishlist = async () => {
     try {
+      const res = await axios.get(
+        "https://dishdeck-gtdd.onrender.com/wish/getWish"
+      );
+      console.log(res.data);
       setOpenModal(true);
     } catch (error) {
       console.log(error);
@@ -63,6 +69,34 @@ const UserProfile = ({ user }) => {
       place.properties.city || ""
     }, ${place.properties.country || ""}`;
     setLocation(fullPlace);
+  };
+  const handleSubmitWish = async () => {
+    try {
+      console.log("Clicked");
+      const res = await axios.post(
+        "https://dishdeck-gtdd.onrender.com/wish/postWish",
+        {
+          food,
+          location,
+          restaurant,
+          user: {
+            uid: user.uid,
+            name: user.displayName,
+          },
+        }
+      );
+      if (res.status === 200 || res.status === 201) {
+        console.log(res);
+        setFood("");
+        setRestaurant("");
+        setLocation("");
+        setOpenModal(false);
+      } else {
+        console.error("Failed to save review.");
+      }
+    } catch (error) {
+      console.log(error);
+    }
   };
 
   return (
@@ -120,6 +154,8 @@ const UserProfile = ({ user }) => {
                 />
                 <input
                   placeholder="Enter Food"
+                  value={food}
+                  onChange={(e) => setFood(e.target.value)}
                   className="w-full !rounded-lg border p-2 mt-2 !border-gray-300 focus:!ring-2 focus:!ring-[#E63946] focus:!border-transparent text-gray-800 placeholder-gray-500"
                 />
                 <Label
@@ -129,11 +165,13 @@ const UserProfile = ({ user }) => {
                 />
                 <input
                   placeholder="Enter Restaurant"
+                  value={restaurant}
+                  onChange={(e) => setRestaurant(e.target.value)}
                   className="w-full !rounded-lg border p-2 mt-2 !border-gray-300 focus:!ring-2 focus:!ring-[#E63946] focus:!border-transparent text-gray-800 placeholder-gray-500"
                 />
               </div>
               <Button
-                onClick={addWishlist}
+                onClick={handleSubmitWish}
                 className="w-full justify-center !bg-[#E63946] hover:!bg-[#D43440] focus:!ring-4 focus:!ring-[#E63946]/50 transition-colors duration-200 ease-in-out"
                 size="xl"
                 pill
