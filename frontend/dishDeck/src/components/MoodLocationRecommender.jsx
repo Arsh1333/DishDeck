@@ -37,14 +37,18 @@ function MoodLocationRecommender() {
   };
 
   return (
-    // Outer container: Full screen height, centered content, clean background
     <div className="min-h-screen bg-gray-50 flex items-center justify-center p-4 sm:p-6 lg:p-8">
-      {/* Main content card: White background, rounded corners, shadow, responsive layout */}
-      <div className="bg-white rounded-xl shadow-lg p-6 sm:p-8 max-w-md w-full border border-gray-200">
+      <div className="bg-white rounded-xl shadow-lg p-6 sm:p-8 max-w-md w-full border border-gray-200 text-center opacity-0 translate-y-5 animate-fadeInUp">
         <h1 className="text-3xl font-extrabold mb-6 text-center text-[#E63946] tracking-tight">
-          DishDeck AI
+          DishDeck's Moodfood AI
         </h1>
 
+        <p className="font-sans text-gray-600">
+          {" "}
+          Pick a mood (like lazy lunch, post-breakup binge, quick bite between
+          meetings), and we will recommend dishes ✨, You can even tell a short
+          story , like events you encountered today
+        </p>
         <div className="mb-5">
           <Label
             htmlFor="moodInput"

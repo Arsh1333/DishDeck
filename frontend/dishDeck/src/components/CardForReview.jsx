@@ -33,7 +33,7 @@ function CardForReview({ user, onLogin }) {
         `https://dishdeck-gtdd.onrender.com/card/getCard`
       );
       setData(review.data);
-      console.log(review.data);
+      // console.log(review.data);
     } catch (error) {
       console.log(error);
     }
