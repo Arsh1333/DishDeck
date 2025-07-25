@@ -16,6 +16,7 @@ const UserProfile = ({ user }) => {
   const [location, setLocation] = useState("");
   const [food, setFood] = useState("");
   const [restaurant, setRestaurant] = useState("");
+  const [wishList, setWishList] = useState([]);
 
   const fetchUserReview = async () => {
     try {
@@ -36,6 +37,7 @@ const UserProfile = ({ user }) => {
   useEffect(() => {
     if (user) {
       fetchUserReview();
+      getWish();
     }
   }, [user]);
 
@@ -50,17 +52,37 @@ const UserProfile = ({ user }) => {
     }
   };
 
-  const addWishlist = async () => {
+  const deleteWish = async (id) => {
+    try {
+      console.log("delete wish");
+      await axios.delete(
+        `https://dishdeck-gtdd.onrender.com/wish/deleteWish/${id}`
+      );
+      setWishList(wishList.filter((wish) => wish._id !== id));
+    } catch (error) {
+      console.error("Failed to delete review", error);
+    }
+  };
+
+  const addWishlist = () => {
+    // console.log(res.data);
+    setOpenModal(true);
+  };
+  const getWish = async () => {
     try {
       const res = await axios.get(
         "https://dishdeck-gtdd.onrender.com/wish/getWish"
       );
-      console.log(res.data);
-      setOpenModal(true);
+      let wish = res.data;
+      // console.log(wish);
+      const filteredWish = wish.filter((i) => i.user?.uid === user?.uid);
+      // console.log(filteredReview);
+      setWishList(filteredWish);
     } catch (error) {
       console.log(error);
     }
   };
+
   const onCloseModal = () => {
     setOpenModal(false);
   };
@@ -86,11 +108,12 @@ const UserProfile = ({ user }) => {
         }
       );
       if (res.status === 200 || res.status === 201) {
-        console.log(res);
+        // console.log(res);
         setFood("");
         setRestaurant("");
         setLocation("");
         setOpenModal(false);
+        getWish();
       } else {
         console.error("Failed to save review.");
       }
@@ -116,18 +139,9 @@ const UserProfile = ({ user }) => {
               You’ve posted {myReviews.length} review
               {myReviews.length !== 1 ? "s" : ""}
             </p>
-            <span className="ml-2">
-              <button
-                onClick={addWishlist}
-                className="bg-green-400 p-4 mt-2 rounded-4xl font-sec"
-              >
-                Your Wishlist
-              </button>
-            </span>{" "}
           </div>
         </div>
       </div>
-
       {user ? (
         <Modal show={openModal} size="md" onClose={onCloseModal} popup>
           <ModalHeader className="!bg-gray-300 rounded-t-xl !text-[#3333]  px-6 py-4 border-b border-gray-200">
@@ -188,7 +202,6 @@ const UserProfile = ({ user }) => {
           </p>
         </div>
       )}
-
       {myReviews.length > 0 ? (
         <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-6">
           {myReviews.map((i) => (
@@ -315,6 +328,56 @@ const UserProfile = ({ user }) => {
           </p>
         </div>
       )}
+      <br />
+      <hr />
+      <br />
+      <div className="flex mt-2">
+        <h1 className="font-sec text-2xl sm:text-3xl font-extrabold text-gray-800 tracking-tight">
+          Your Wishlist
+        </h1>
+        <button
+          onClick={addWishlist}
+          className="bg-[#E63946] text-white p-2 ml-4 mb-1  rounded-4xl font-sec"
+        >
+          Add to wishlist
+        </button>
+      </div>
+
+      {wishList.map((i) => (
+        <div
+          key={i._id}
+          className="my-4 bg-white p-6 rounded-2xl shadow-lg transition-transform duration-300 ease-in-out hover:scale-[1.01]"
+        >
+          <h2 className="text-xl font-bold text-gray-800 mb-2">
+            {i.location || "Unknown Location"}
+          </h2>
+
+          <div className="text-left space-y-1">
+            <p className="text-base text-gray-700">
+              <span className="font-medium">Food:</span> {i.food}
+            </p>
+            <p className="text-base text-gray-700">
+              <span className="font-medium">Restaurant:</span> {i.restaurant}
+            </p>
+            <button onClick={() => deleteWish(i._id)}>
+              <svg
+                xmlns="http://www.w3.org/2000/svg"
+                fill="none"
+                viewBox="0 0 24 24"
+                strokeWidth={1.5}
+                stroke="currentColor"
+                className="size-6"
+              >
+                <path
+                  strokeLinecap="round"
+                  strokeLinejoin="round"
+                  d="m14.74 9-.346 9m-4.788 0L9.26 9m9.968-3.21c.342.052.682.107 1.022.166m-1.022-.165L18.16 19.673a2.25 2.25 0 0 1-2.244 2.077H8.084a2.25 2.25 0 0 1-2.244-2.077L4.772 5.79m14.456 0a48.108 48.108 0 0 0-3.478-.397m-12 .562c.34-.059.68-.114 1.022-.165m0 0a48.11 48.11 0 0 1 3.478-.397m7.5 0v-.916c0-1.18-.91-2.164-2.09-2.201a51.964 51.964 0 0 0-3.32 0c-1.18.037-2.09 1.022-2.09 2.201v.916m7.5 0a48.667 48.667 0 0 0-7.5 0"
+                />
+              </svg>
+            </button>
+          </div>
+        </div>
+      ))}
     </div>
   );
 };
