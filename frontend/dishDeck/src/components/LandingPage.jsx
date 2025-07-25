@@ -7,11 +7,11 @@ function LandingPage({ user, onLogin }) {
     <>
       <div className="min-h-screen font-sec bg-gray-50  flex flex-col items-center justify-center px-4 py-8 sm:px-6 lg:px-8">
         <div className="bg-white p-6 sm:p-8 rounded-2xl shadow-xl max-w-xl w-full text-center opacity-0 translate-y-5 animate-fadeInUp">
-          <h1 className="flex items-center gap-4 text-4xl sm:text-5xl font-extrabold text-gray-800 mb-4 ml-[120px] tracking-tight">
+          <h1 className="flex items-center gap-4 text-3xl sm:text-5xl font-extrabold text-gray-800 mb-4 ml-4 sm:ml-[130px] tracking-tight">
             DishDeck
             <img
-              src="/public/favicon.ico"
-              className="h-[80px] w-[80px]"
+              src="/favicon.ico"
+              className="h-10 w-10 sm:h-20 sm:w-20"
               alt="DishDeck Logo"
             />
           </h1>
