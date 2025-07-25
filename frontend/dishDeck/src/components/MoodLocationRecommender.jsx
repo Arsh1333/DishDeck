@@ -1,6 +1,7 @@
 import { useState } from "react";
 import axios from "axios";
-import { Button, Label, TextInput, Spinner } from "flowbite-react"; // Import Flowbite components
+import { Button, Label, Spinner } from "flowbite-react";
+import { Link } from "react-router-dom";
 
 function MoodLocationRecommender() {
   const [moodInput, setMoodInput] = useState("");
@@ -43,12 +44,12 @@ function MoodLocationRecommender() {
           DishDeck's Moodfood AI
         </h1>
 
-        <p className="font-sans text-gray-600">
-          {" "}
+        <p className="font-sans text-gray-600 mb-6 text-sm">
           Pick a mood (like lazy lunch, post-breakup binge, quick bite between
-          meetings), and we will recommend dishes ✨, You can even tell a short
-          story , like events you encountered today
+          meetings), and we will recommend dishes ✨. You can even tell a short
+          story like events you encountered today.
         </p>
+
         <div className="mb-5">
           <Label
             htmlFor="moodInput"
@@ -77,7 +78,7 @@ function MoodLocationRecommender() {
           className="w-full justify-center !bg-[#E63946] hover:!bg-[#D43440] focus:!ring-4 focus:!ring-[#E63946]/50 transition-colors duration-200 ease-in-out"
           size="lg"
           pill
-          disabled={isLoading} // Disable button while loading
+          disabled={isLoading}
         >
           {isLoading ? (
             <div className="flex items-center gap-2">
@@ -90,8 +91,8 @@ function MoodLocationRecommender() {
         </Button>
 
         {suggestions && (
-          <div className="mt-8 pt-6 border-t border-gray-100">
-            <h2 className="text-xl font-bold text-[#E63946] mb-4">
+          <div className="mt-8 pt-6 border-t border-gray-100 text-left">
+            <h2 className="text-xl font-bold text-[#E63946] mb-4 text-center">
               Suggested Dishes:
             </h2>
             <ul className="space-y-4">
@@ -112,9 +113,59 @@ function MoodLocationRecommender() {
                       {dish.region_of_origin}
                     </span>
                   </p>
+
+                  {dish.nutritional_data && (
+                    <div className="mt-3 text-sm text-gray-700 bg-white p-3 rounded-lg border border-gray-200">
+                      <h3 className="font-bold mb-1 text-green-500">
+                        Nutritional Info:
+                      </h3>
+                      <ul className="space-y-1">
+                        <li>
+                          <strong>Calories:</strong>{" "}
+                          {dish.nutritional_data.calories}
+                        </li>
+                        <li>
+                          <strong>Protein:</strong>{" "}
+                          {dish.nutritional_data.protein}
+                        </li>
+                        <li>
+                          <strong>Fat:</strong> {dish.nutritional_data.fat}
+                        </li>
+                        <li>
+                          <strong>Carbs:</strong>{" "}
+                          {dish.nutritional_data.carbohydrates}
+                        </li>
+                        <li>
+                          <strong>Fiber:</strong> {dish.nutritional_data.fiber}
+                        </li>
+                      </ul>
+                    </div>
+                  )}
                 </li>
               ))}
             </ul>
+            <p className="font-sec mt-4 ">
+              Try one of the dish and review it on our review page{" "}
+              <span>
+                {" "}
+                <Link to="/card">
+                  <svg
+                    xmlns="http://www.w3.org/2000/svg"
+                    fill="none"
+                    viewBox="0 0 24 24"
+                    stroke-width="1.5"
+                    stroke="currentColor"
+                    className="size-4 border border-red-500"
+                  >
+                    <path
+                      strokeLineCap="round"
+                      strokeLineJoin="round"
+                      d="M13.5 4.5 21 12m0 0-7.5 7.5M21 12H3"
+                    />
+                  </svg>
+                </Link>
+              </span>
+            </p>
           </div>
         )}
       </div>
