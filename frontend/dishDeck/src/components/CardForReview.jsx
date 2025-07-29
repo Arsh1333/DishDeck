@@ -26,6 +26,8 @@ function CardForReview({ user, onLogin }) {
   const [selectedFood, setSelectedFood] = useState("");
   const [selectedRatings, setSelectedRatings] = useState("");
   const [imageFile, setImageFile] = useState(null);
+  const [isVeg, setIsVeg] = useState(false);
+  const [isNonVeg, setIsNonVeg] = useState(false);
 
   const getReview = async () => {
     try {
@@ -33,7 +35,7 @@ function CardForReview({ user, onLogin }) {
         `https://dishdeck-gtdd.onrender.com/card/getCard`
       );
       setData(review.data);
-      // console.log(review.data);
+      console.log(review.data);
     } catch (error) {
       console.log(error);
     }
@@ -81,6 +83,8 @@ function CardForReview({ user, onLogin }) {
           },
           image: imageUrl,
           public_id,
+          isVeg,
+          isNonVeg,
         }
       );
       // await getReview();
@@ -243,6 +247,33 @@ function CardForReview({ user, onLogin }) {
                     />
                   </div>
                 ))}
+                <div className="flex gap-4 items-center">
+                  <label className="flex items-center gap-2">
+                    <input
+                      type="radio"
+                      name="foodType"
+                      checked={isVeg}
+                      onChange={() => {
+                        setIsVeg(true);
+                        setIsNonVeg(false);
+                      }}
+                    />
+                    Veg 🟩
+                  </label>
+
+                  <label className="flex items-center gap-2">
+                    <input
+                      type="radio"
+                      name="foodType"
+                      checked={isNonVeg}
+                      onChange={() => {
+                        setIsNonVeg(true);
+                        setIsVeg(false);
+                      }}
+                    />
+                    Non-Veg 🟥
+                  </label>
+                </div>
                 <div>
                   <Label
                     htmlFor="locationInput"
