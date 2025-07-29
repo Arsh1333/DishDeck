@@ -21,6 +21,8 @@ const addCard = async (req, res) => {
       location,
       restaurant,
       user,
+      isVeg,
+      isNonVeg,
       image,
       public_id,
     } = req.body;
