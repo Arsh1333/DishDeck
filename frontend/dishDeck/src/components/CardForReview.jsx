@@ -142,6 +142,10 @@ function CardForReview({ user, onLogin }) {
     }
   };
 
+  useEffect(() => {
+    console.log("Updated isVeg:", isVeg);
+  }, [isVeg]);
+
   return (
     <div className="min-h-screen bg-gray-50 font-sec px-4 py-8 sm:px-6 lg:px-8">
       <div className="bg-white p-4 sm:p-6 rounded-xl font-sec shadow-lg mb-8 flex flex-wrap gap-4 justify-center items-center opacity-0 translate-y-5 animate-fadeInUp w-full">
@@ -254,7 +258,10 @@ function CardForReview({ user, onLogin }) {
                       name="foodType"
                       checked={isVeg}
                       onChange={() => {
-                        setIsVeg(true);
+                        setIsVeg((prev) => {
+                          console.log("Setting isVeg to true, was:", prev);
+                          return true;
+                        });
                         setIsNonVeg(false);
                       }}
                     />
@@ -269,6 +276,7 @@ function CardForReview({ user, onLogin }) {
                       onChange={() => {
                         setIsNonVeg(true);
                         setIsVeg(false);
+                        // console.log(isVeg);
                       }}
                     />
                     Non-Veg 🟥

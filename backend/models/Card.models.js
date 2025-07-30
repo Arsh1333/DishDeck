@@ -24,11 +24,9 @@ const cardSchema = new Schema(
     },
     isVeg: {
       type: Boolean,
-      default: false,
     },
     isNonVeg: {
       type: Boolean,
-      default: false,
     },
     user: {
       uid: String,
