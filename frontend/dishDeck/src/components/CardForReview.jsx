@@ -33,10 +33,13 @@ function CardForReview({ user, onLogin }) {
   const availableTags = [
     "Spicy 🌶️",
     "Sweet 🍬",
-    "Street Food 🛣️",
+    "Salty 🧂",
     "Hidden Gem 💎",
     "Must Try ⭐",
     "Cheap & Best 💸",
+    "Home Style 🏠",
+    "Quick Bite ⚡",
+    "Overrated 😶",
   ];
 
   function toggleTag(tag) {
@@ -264,6 +267,17 @@ function CardForReview({ user, onLogin }) {
                     />
                   </div>
                 ))}
+                <div>
+                  <Label
+                    htmlFor="locationInput"
+                    value="Location"
+                    className="block text-sm font-medium text-gray-700 mb-1"
+                  />
+                  <LocationInput
+                    className="w-full !rounded-lg !border-gray-300 focus:!ring-2 focus:!ring-[#E63946] focus:!border-transparent text-gray-800 placeholder-gray-500"
+                    onSelect={handleLocationSelect}
+                  />
+                </div>
                 <div className="flex flex-wrap gap-2">
                   {availableTags.map((tag) => (
                     <button
@@ -279,17 +293,7 @@ function CardForReview({ user, onLogin }) {
                     </button>
                   ))}
                 </div>
-                <div>
-                  <Label
-                    htmlFor="locationInput"
-                    value="Location"
-                    className="block text-sm font-medium text-gray-700 mb-1"
-                  />
-                  <LocationInput
-                    className="w-full !rounded-lg !border-gray-300 focus:!ring-2 focus:!ring-[#E63946] focus:!border-transparent text-gray-800 placeholder-gray-500"
-                    onSelect={handleLocationSelect}
-                  />
-                </div>
+
                 <div className="flex gap-4 items-center">
                   <label className="flex items-center gap-2">
                     <input
@@ -318,6 +322,7 @@ function CardForReview({ user, onLogin }) {
                   </label>
                 </div>
                 <div>
+                  <p>Upload Image</p>
                   <Label
                     htmlFor="imageUpload"
                     value="Upload Image (Optional)"
@@ -501,6 +506,16 @@ function CardForReview({ user, onLogin }) {
                       - {i.user?.name || "Anonymous"}
                     </p>
                   </div>
+                </div>
+                <div className="flex flex-wrap gap-2 mt-2">
+                  {i.tags?.map((tag, idx) => (
+                    <span
+                      key={idx}
+                      className="bg-gray-100 text-gray-700 px-2 py-1 text-xs rounded-full font-medium"
+                    >
+                      {tag}
+                    </span>
+                  ))}
                 </div>
               </Card>
             ))
