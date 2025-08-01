@@ -27,7 +27,7 @@ function CardForReview({ user, onLogin }) {
   const [selectedRatings, setSelectedRatings] = useState("");
   const [imageFile, setImageFile] = useState(null);
   const [isVeg, setIsVeg] = useState(false);
-  // const [isNonVeg, setIsNonVeg] = useState(false);
+  const [isNonVeg, setIsNonVeg] = useState(false);
 
   const getReview = async () => {
     try {
@@ -84,7 +84,7 @@ function CardForReview({ user, onLogin }) {
           image: imageUrl,
           public_id,
           isVeg,
-          // isNonVeg,
+          isNonVeg,
         }
       );
       // await getReview();
@@ -255,12 +255,13 @@ function CardForReview({ user, onLogin }) {
                       checked={isVeg}
                       onChange={() => {
                         setIsVeg(true);
+                        setIsNonVeg(false);
                       }}
                     />
                     Veg 🟩
                   </label>
 
-                  {/* <label className="flex items-center gap-2">
+                  <label className="flex items-center gap-2">
                     <input
                       type="radio"
                       name="foodType"
@@ -268,11 +269,10 @@ function CardForReview({ user, onLogin }) {
                       onChange={() => {
                         setIsNonVeg(true);
                         setIsVeg(false);
-                        // console.log(isVeg);
                       }}
                     />
                     Non-Veg 🟥
-                  </label> */}
+                  </label>
                 </div>
                 <div>
                   <Label
@@ -361,9 +361,39 @@ function CardForReview({ user, onLogin }) {
 
                 <div className="p-4 space-y-2">
                   <div className="flex justify-between items-center">
+                    <p className="font-light">
+                      {i.isVeg ? (
+                        <svg width="24" height="24" viewBox="0 0 24 24">
+                          <rect
+                            x="0"
+                            y="0"
+                            width="24"
+                            height="24"
+                            stroke="green"
+                            fill="none"
+                            strokeWidth="2"
+                          />
+                          <circle cx="12" cy="12" r="6" fill="green" />
+                        </svg>
+                      ) : (
+                        <svg width="24" height="24" viewBox="0 0 24 24">
+                          <rect
+                            x="0"
+                            y="0"
+                            width="24"
+                            height="24"
+                            stroke="brown"
+                            fill="none"
+                            strokeWidth="2"
+                          />
+                          <polygon points="12,6 18,18 6,18" fill="brown" />
+                        </svg>
+                      )}
+                    </p>
                     <h3 className="text-lg font-bold text-gray-800 truncate">
                       {i.food}
                     </h3>
+
                     <span className="text-sm bg-yellow-100 text-yellow-800 px-2 py-0.5 rounded-full font-semibold flex items-center gap-1">
                       <svg
                         className="w-4 h-4 text-yellow-500"
