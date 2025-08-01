@@ -28,6 +28,22 @@ function CardForReview({ user, onLogin }) {
   const [imageFile, setImageFile] = useState(null);
   const [isVeg, setIsVeg] = useState(false);
   const [isNonVeg, setIsNonVeg] = useState(false);
+  const [selectedTags, setSelectedTags] = useState([]);
+
+  const availableTags = [
+    "Spicy 🌶️",
+    "Sweet 🍬",
+    "Street Food 🛣️",
+    "Hidden Gem 💎",
+    "Must Try ⭐",
+    "Cheap & Best 💸",
+  ];
+
+  function toggleTag(tag) {
+    setSelectedTags((prev) =>
+      prev.includes(tag) ? prev.filter((t) => t !== tag) : [...prev, tag]
+    );
+  }
 
   const getReview = async () => {
     try {
@@ -85,6 +101,7 @@ function CardForReview({ user, onLogin }) {
           public_id,
           isVeg,
           isNonVeg,
+          tags: selectedTags,
         }
       );
       // await getReview();
@@ -247,6 +264,32 @@ function CardForReview({ user, onLogin }) {
                     />
                   </div>
                 ))}
+                <div className="flex flex-wrap gap-2">
+                  {availableTags.map((tag) => (
+                    <button
+                      key={tag}
+                      onClick={() => toggleTag(tag)}
+                      className={`px-2 py-1 rounded-full border ${
+                        selectedTags.includes(tag)
+                          ? "bg-green-300 text-black"
+                          : "bg-gray-100 text-gray-700"
+                      }`}
+                    >
+                      {tag}
+                    </button>
+                  ))}
+                </div>
+                <div>
+                  <Label
+                    htmlFor="locationInput"
+                    value="Location"
+                    className="block text-sm font-medium text-gray-700 mb-1"
+                  />
+                  <LocationInput
+                    className="w-full !rounded-lg !border-gray-300 focus:!ring-2 focus:!ring-[#E63946] focus:!border-transparent text-gray-800 placeholder-gray-500"
+                    onSelect={handleLocationSelect}
+                  />
+                </div>
                 <div className="flex gap-4 items-center">
                   <label className="flex items-center gap-2">
                     <input
@@ -273,17 +316,6 @@ function CardForReview({ user, onLogin }) {
                     />
                     Non-Veg 🟥
                   </label>
-                </div>
-                <div>
-                  <Label
-                    htmlFor="locationInput"
-                    value="Location"
-                    className="block text-sm font-medium text-gray-700 mb-1"
-                  />
-                  <LocationInput
-                    className="w-full !rounded-lg !border-gray-300 focus:!ring-2 focus:!ring-[#E63946] focus:!border-transparent text-gray-800 placeholder-gray-500"
-                    onSelect={handleLocationSelect}
-                  />
                 </div>
                 <div>
                   <Label

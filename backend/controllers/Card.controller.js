@@ -25,6 +25,7 @@ const addCard = async (req, res) => {
       isNonVeg,
       image,
       public_id,
+      tags,
     } = req.body;
     const newCard = await Card({
       food,
@@ -37,6 +38,7 @@ const addCard = async (req, res) => {
       public_id,
       isVeg,
       isNonVeg,
+      tags,
     });
     await newCard.save();
     console.log("New Card Added");

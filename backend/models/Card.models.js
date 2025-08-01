@@ -4,7 +4,7 @@ const cardSchema = new Schema(
   {
     food: {
       type: String,
-      reuired: true,
+      required: true,
     },
     restaurant: {
       type: String,
@@ -27,6 +27,10 @@ const cardSchema = new Schema(
     },
     isNonVeg: {
       type: Boolean,
+    },
+    tags: {
+      type: [String],
+      default: [],
     },
     user: {
       uid: String,
