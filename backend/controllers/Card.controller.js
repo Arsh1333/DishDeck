@@ -35,6 +35,8 @@ const addCard = async (req, res) => {
       user,
       image,
       public_id,
+      isVeg,
+      isNonVeg,
     });
     await newCard.save();
     console.log("New Card Added");

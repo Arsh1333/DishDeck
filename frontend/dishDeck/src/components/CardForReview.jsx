@@ -27,7 +27,7 @@ function CardForReview({ user, onLogin }) {
   const [selectedRatings, setSelectedRatings] = useState("");
   const [imageFile, setImageFile] = useState(null);
   const [isVeg, setIsVeg] = useState(false);
-  const [isNonVeg, setIsNonVeg] = useState(false);
+  // const [isNonVeg, setIsNonVeg] = useState(false);
 
   const getReview = async () => {
     try {
@@ -84,7 +84,7 @@ function CardForReview({ user, onLogin }) {
           image: imageUrl,
           public_id,
           isVeg,
-          isNonVeg,
+          // isNonVeg,
         }
       );
       // await getReview();
@@ -141,10 +141,6 @@ function CardForReview({ user, onLogin }) {
       console.log("Error while logging in", error);
     }
   };
-
-  useEffect(() => {
-    console.log("Updated isVeg:", isVeg);
-  }, [isVeg]);
 
   return (
     <div className="min-h-screen bg-gray-50 font-sec px-4 py-8 sm:px-6 lg:px-8">
@@ -258,17 +254,13 @@ function CardForReview({ user, onLogin }) {
                       name="foodType"
                       checked={isVeg}
                       onChange={() => {
-                        setIsVeg((prev) => {
-                          console.log("Setting isVeg to true, was:", prev);
-                          return true;
-                        });
-                        setIsNonVeg(false);
+                        setIsVeg(true);
                       }}
                     />
                     Veg 🟩
                   </label>
 
-                  <label className="flex items-center gap-2">
+                  {/* <label className="flex items-center gap-2">
                     <input
                       type="radio"
                       name="foodType"
@@ -280,7 +272,7 @@ function CardForReview({ user, onLogin }) {
                       }}
                     />
                     Non-Veg 🟥
-                  </label>
+                  </label> */}
                 </div>
                 <div>
                   <Label
