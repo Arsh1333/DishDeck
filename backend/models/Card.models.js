@@ -36,6 +36,9 @@ const cardSchema = new Schema(
       uid: String,
       name: String,
     },
+    isAnonymous: {
+      type: Boolean,
+    },
     image: String,
     public_id: String,
   },

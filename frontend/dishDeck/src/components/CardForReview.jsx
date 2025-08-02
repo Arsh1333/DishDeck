@@ -8,6 +8,8 @@ import {
   ModalBody,
   ModalHeader,
   TextInput,
+  ModalContext,
+  ModalFooter,
 } from "flowbite-react";
 import LocationInput from "./LocationInput";
 import { auth, provider, signInWithPopup, signOut } from "../firebase.js";
@@ -29,6 +31,7 @@ function CardForReview({ user, onLogin }) {
   const [isVeg, setIsVeg] = useState(false);
   const [isNonVeg, setIsNonVeg] = useState(false);
   const [selectedTags, setSelectedTags] = useState([]);
+  const [isAnonymous, setIsAnonymous] = useState(false);
 
   const availableTags = [
     "Spicy 🌶️",
@@ -54,7 +57,7 @@ function CardForReview({ user, onLogin }) {
         `https://dishdeck-gtdd.onrender.com/card/getCard`
       );
       setData(review.data);
-      console.log(review.data);
+      // console.log(review.data);
     } catch (error) {
       console.log(error);
     }
@@ -87,6 +90,9 @@ function CardForReview({ user, onLogin }) {
       alert("Please enter a valid rating between 1 and 5.");
       return;
     }
+    if (user) {
+      setIsAnonymous(false);
+    }
     try {
       const res = await axios.post(
         `https://dishdeck-gtdd.onrender.com/card/postCard`,
@@ -96,10 +102,16 @@ function CardForReview({ user, onLogin }) {
           review,
           ratings,
           restaurant,
-          user: {
-            uid: user.uid,
-            name: user.displayName,
-          },
+          // user: {
+          //   uid: user.uid,
+          //   name: user.displayName,
+          // },
+          user: isAnonymous
+            ? { uid: null, name: "Anonymous" }
+            : {
+                uid: user?.uid || null,
+                name: user?.displayName || "Unknown",
+              },
           image: imageUrl,
           public_id,
           isVeg,
@@ -216,13 +228,25 @@ function CardForReview({ user, onLogin }) {
 
         <div className="flex justify-center w-full sm:w-auto">
           <Button
-            onClick={async () => {
+            onClick={() => {
               if (!user) {
                 console.log("user not found");
-                login();
+                // login();
+                onLogin();
+                setOpenModal(true);
+                setIsAnonymous(true);
+                return;
               }
               setOpenModal(true);
             }}
+            // onClick={async () => {
+            //   if (!user) {
+            //     console.log("User not found");
+            //     onLogin(); // Use the passed prop
+            //     return;
+            //   }
+            //   setOpenModal(true); // Show the modal
+            // }}
             className="w-full justify-center !bg-[#E63946] hover:!bg-[#D43440] focus:!ring-4 focus:!ring-[#E63946]/50 transition-colors duration-200 ease-in-out"
             size="xl"
             pill
@@ -232,7 +256,9 @@ function CardForReview({ user, onLogin }) {
         </div>
       </div>
 
-      {user ? (
+      {/* Used for user */}
+
+      {/* {user ? (
         <>
           <Modal show={openModal} size="md" onClose={onCloseModal} popup>
             <ModalHeader className="!bg-gray-300 rounded-t-xl !text-[#3333]  px-6 py-4 border-b border-gray-200">
@@ -352,6 +378,136 @@ function CardForReview({ user, onLogin }) {
         <div className="text-center text-gray-500 mb-6 p-4 rounded-lg bg-gray-100 shadow-sm">
           <p className="text-gray-700 font-medium">
             Please log in / sign in to add a review.
+          </p>
+        </div>
+      )} */}
+
+      {/* Used for guest*/}
+
+      {openModal || user ? (
+        <>
+          <Modal show={openModal} size="md" onClose={onCloseModal} popup>
+            <ModalHeader className="!bg-gray-300 rounded-t-xl !text-[#3333]  px-6 py-4 border-b border-gray-200">
+              <span className="text-lg text-[#333] font-semibold">
+                Add Your Food Review
+              </span>
+            </ModalHeader>
+            <ModalBody className="!bg-gray-100 px-6 py-6 rounded-b-xl">
+              <div className="space-y-5">
+                {[
+                  { label: "Food Item", value: food, set: setFood },
+                  { label: "Food Review", value: review, set: setReview },
+                  { label: "Rating (1–5)", value: ratings, set: setRatings },
+                  {
+                    label: "Restaurant",
+                    value: restaurant,
+                    set: setRestaurant,
+                  },
+                ].map(({ label, value, set }, idx) => (
+                  <div key={idx}>
+                    <Label
+                      htmlFor={label.replace(/\s/g, "")}
+                      value={label}
+                      className="block text-sm font-medium text-gray-700 mb-1"
+                    />
+                    <input
+                      value={value}
+                      onChange={(e) => set(e.target.value)}
+                      placeholder={`Enter ${label.toLowerCase()}`}
+                      required
+                      className="w-full p-3 !rounded-lg border !border-gray-300 focus:!ring-2 focus:!ring-[#E63946] focus:!border-transparent text-gray-800 placeholder-gray-500"
+                    />
+                  </div>
+                ))}
+                <div>
+                  <Label
+                    htmlFor="locationInput"
+                    value="Location"
+                    className="block text-sm font-medium text-gray-700 mb-1"
+                  />
+                  <LocationInput
+                    className="w-full !rounded-lg !border-gray-300 focus:!ring-2 focus:!ring-[#E63946] focus:!border-transparent text-gray-800 placeholder-gray-500"
+                    onSelect={handleLocationSelect}
+                  />
+                </div>
+                <div className="flex flex-wrap gap-2">
+                  {availableTags.map((tag) => (
+                    <button
+                      key={tag}
+                      onClick={() => toggleTag(tag)}
+                      className={`px-2 py-1 rounded-full border ${
+                        selectedTags.includes(tag)
+                          ? "bg-green-300 text-black"
+                          : "bg-gray-100 text-gray-700"
+                      }`}
+                    >
+                      {tag}
+                    </button>
+                  ))}
+                </div>
+
+                <div className="flex gap-4 items-center">
+                  <label className="flex items-center gap-2">
+                    <input
+                      type="radio"
+                      name="foodType"
+                      checked={isVeg}
+                      onChange={() => {
+                        setIsVeg(true);
+                        setIsNonVeg(false);
+                      }}
+                    />
+                    Veg 🟩
+                  </label>
+
+                  <label className="flex items-center gap-2">
+                    <input
+                      type="radio"
+                      name="foodType"
+                      checked={isNonVeg}
+                      onChange={() => {
+                        setIsNonVeg(true);
+                        setIsVeg(false);
+                      }}
+                    />
+                    Non-Veg 🟥
+                  </label>
+                </div>
+                <div>
+                  <p>Upload Image</p>
+                  <Label
+                    htmlFor="imageUpload"
+                    value="Upload Image (Optional)"
+                    className="block text-sm font-medium text-gray-700 mb-1"
+                  />
+                  <input
+                    id="imageUpload"
+                    type="file"
+                    accept="image/*"
+                    onChange={(e) => setImageFile(e.target.files[0])}
+                    className="w-full px-4 py-2 bg-white border border-gray-300 rounded-lg shadow-sm text-gray-800 focus:outline-none focus:ring-2 focus:ring-[#E63946]"
+                  />
+                </div>
+                <Button
+                  onClick={addReview}
+                  className="w-full justify-center !bg-[#E63946] hover:!bg-[#D43440] focus:!ring-4 focus:!ring-[#E63946]/50 transition-colors duration-200 ease-in-out"
+                  size="xl"
+                  pill
+                >
+                  Submit Review
+                </Button>
+              </div>
+            </ModalBody>
+          </Modal>
+        </>
+      ) : (
+        <div className="text-center text-gray-500 mb-6 p-4 rounded-lg bg-gray-100 shadow-sm">
+          <p className="text-gray-700 font-medium">
+            Please log in / sign in to view wishlist and profile.{" "}
+            <span className="font-bold">
+              {" "}
+              Users can now add review without sign in 💫
+            </span>
           </p>
         </div>
       )}
