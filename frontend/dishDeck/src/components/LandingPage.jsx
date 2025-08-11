@@ -7,14 +7,14 @@ function LandingPage({ user, onLogin }) {
   return (
     <>
       <div className="min-h-screen font-sec bg-gray-50  flex flex-col items-center justify-center px-4 py-8 sm:px-6 lg:px-8">
-        <a href="https://peerlist.io/arsh_13/project/dishdeck" target="_blank">
+        {/* <a href="https://peerlist.io/arsh_13/project/dishdeck" target="_blank">
           {" "}
           <img
             src={peerImage}
             alt="Delicious food preview"
-            className=" h-[80px] ml-3 border-white transform hover:scale-[1.01] transition-transform duration-300 ease-in-out" // Added subtle hover effect
+            className=" h-[80px] ml-3 border-none border-white transform hover:scale-[1.01] transition-transform duration-300 ease-in-out" // Added subtle hover effect
           />
-        </a>
+        </a> */}
         <div className="bg-white p-6 sm:p-8 rounded-2xl shadow-xl max-w-xl w-full text-center opacity-0 translate-y-5 animate-fadeInUp">
           <h1 className="flex items-center gap-4 text-3xl sm:text-5xl font-extrabold text-gray-800 mb-4 ml-4 sm:ml-[130px] tracking-tight">
             DishDeck
